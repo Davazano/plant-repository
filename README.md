@@ -16,3 +16,20 @@ Blog post -> https://realpython.com/blog/python/django-development-with-docker-c
 1. Start services - `docker-compose up -d`
 1. Create migrations - `docker-compose run web /usr/local/bin/python manage.py migrate`
 1. Grab IP - `docker-machine ip dev` - and view in your browser
+
+### Run Migration (Tested on Ubuntu)
+-----------------------
+$ sudo docker-compose up
+------------------------
+In new terminal
+$ docker ps
+
+copy container id for webapp image
+$ docker exec -t -i <container id> bash
+
+$ cd <path/to/dangoapp>
+$ python3 manage.py makemigrations
+$ python manage.py migrate
+
+
+Ctrl + D to exit interactive bash
