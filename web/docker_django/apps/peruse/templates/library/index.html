@@ -1,0 +1,38 @@
+{% extends 'library/_base.html' %}
+{% block index_active %}active{% endblock %}
+
+{% block body %}
+<div class="library-container container-fluid">
+
+    <!-- Plants -->
+    <div class="row">
+        <div class="col-sm-12">
+            <!--<h3>Recently Uploads</h3>-->
+        </div>
+        {% if plants %}
+            {% for plant in plants %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="">
+                            <img src="{{ plant.plant_picture.url }}" class="img-responsive">
+                        </a>
+                        <div class="caption" style="text-align: center;">
+                            <h6>{{ plant.plant_name }}</h6>
+
+                            <!-- View Details -->
+                            <a href="" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <p>No plant has been uploaded.</p>
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}
