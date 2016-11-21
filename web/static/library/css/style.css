@@ -24,8 +24,8 @@ ul.errorlist > li {
 }
 
 .navbar-unijosblue {
-    background-color: #068;
-    border-color: #069;
+    background-color: #21b384; /* #068; */
+    border-color: #21b384; /* #069; */
 }
 
 .icon-bar {
@@ -38,7 +38,7 @@ ul.errorlist > li {
 }
 
 .navbar-unijosblue ul li a:hover {
-	color: #068; /*C90*/
+	color: #21b384; /* #068; /*C90*/
 	background: #fff;
 }
 

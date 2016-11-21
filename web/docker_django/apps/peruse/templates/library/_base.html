@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'library/css/bootstrap.css' %}">
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'library/css/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}"/>
     <script src="{% static 'library/js/jquery.js' %}"></script>
     <script src="{% static 'library/js/bootstrap.js' %}"></script>
 
@@ -30,7 +31,7 @@
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="{% block index_active %}{% endblock %}"><a href="{% url 'peruse.index' %}"><span class="glyphicon glyphicon-book" aria-hidden="true"></span>&nbsp; Plant Library</a></li>
+                <li class="{% block index_active %}{% endblock %}"><a href="{% url 'peruse.index' %}"><i class="fa fa-book"></i>&nbsp; Plant Library</a></li>
                 <!--<li class=""><a href="http://unijos.edu.ng/" target="_blank">University of Jos</a></li>-->
             </ul>
             <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'peruse.index' %}">

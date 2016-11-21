@@ -31,5 +31,23 @@ $ cd <path/to/dangoapp>
 $ python3 manage.py makemigrations
 $ python manage.py migrate
 
+### collect static files
+$ python3 manage.py collectstatic
+
+You get the following message
+---
+You have requested to collect static files at the destination
+location as specified in your settings:
+
+    /usr/src/app/static
+
+This will overwrite existing files!
+Are you sure you want to do this?
+
+Type 'yes' to continue, or 'no' to cancel: yes
+---
+type yes and press enter.
+
+
 
 Ctrl + D to exit interactive bash
