@@ -23,7 +23,7 @@ ul.errorlist > li {
     color: wheat;
 }
 
-.navbar-unijosblue {
+.navbar-generic {
     background-color: #21b384; /* #068; */
     border-color: #21b384; /* #069; */
 }
@@ -32,14 +32,31 @@ ul.errorlist > li {
     background: #fff;
 }
 
-.navbar-unijosblue ul li a {
+.navbar-generic ul li a {
 	color: #fff;
 	font-weight: bold;
 }
 
-.navbar-unijosblue ul li a:hover {
+.navbar-generic ul li a:hover {
 	color: #21b384; /* #068; /*C90*/
 	background: #fff;
+}
+
+.label-generic {
+	background-color:#21b384;
+}
+
+.label-generic[href]:focus,.label-generic[href]:hover {
+	background-color:#449d44
+}
+
+.hit-counter {
+	background: #fafafa;
+	color: #444;
+	padding: 7px;
+	border-radius: 4px;
+	border: 1px solid #ccc; 
+	width: 7%;
 }
 
 .glyphicon-star {
