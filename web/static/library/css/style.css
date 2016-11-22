@@ -57,6 +57,11 @@ ul.errorlist > li {
 	border-radius: 4px;
 	border: 1px solid #ccc; 
 	width: 7%;
+	margin-bottom: 3px; 
+}
+
+.hit-counter > p {
+	margin: 0px;
 }
 
 .glyphicon-star {
@@ -194,4 +199,12 @@ ul.errorlist > li {
 	text-align: left;
 	padding-left: 20px;
 
+}
+.top-banner {
+	margin: 0;
+	padding: 7px 0;
+	background: #fff;
+}
+.img-box {
+	width: 10%;
 }

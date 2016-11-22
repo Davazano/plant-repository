@@ -15,8 +15,9 @@
     <script src="{% static 'library/js/main.js' %}"></script>
 </head>
 <body>
-<div class="img-responsive">
-    <img src="{% static 'library/images/aceprd banners.jpg' %}" width="1000" height="74" alt="banner" />
+<div class="top-banner">
+    <img src="{% static 'library/images/phytomedicine.png' %}" height="74" alt="banner" />
+    <img class="pull-right" src="{% static 'library/images/unijos.png' %}" height="74" alt="banner" />
 </div>
 <nav class="navbar navbar-generic">
     <div class="container-fluid">
@@ -55,8 +56,8 @@
 
 {% endblock %}
 
-<div class="hit-counter">
-    <p><span class="label label-generic">{{ counter }}</span> views</p>
+<div class="hit-counter pull-right">
+    <p class="text-center"><span class="label label-generic">{{ counter }}</span> views</p>
 </div>
 </body>
 </html>
