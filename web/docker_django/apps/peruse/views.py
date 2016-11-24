@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 import requests
+import datetime
+import time
 
 redis = Redis(host='redis', port=6379)
 
@@ -20,7 +22,7 @@ def plant_detail(request, plant_id):
 	return render(request, 'library/detail.html', {'plant': plant, 'plant_images': plant_images, 'counter': counter})
 
 def test(request):
-	# filePath = staticfiles_storage.url('library/xml/dataset-submission-to-OAR.xml')
+	counter = redis.incr('counter')
 	filePath = '/usr/src/app/static/library/xml/dataset-submission-to-OAR.xml'
 	MIME = 'application/marcxml+xml'
 	OARurl = 'http://oar.sci-gaia.eu/batchuploader/robotupload/insert'
@@ -30,14 +32,18 @@ def test(request):
 		'User-Agent': 'invenio_webupload'
 	}
 
+	# now = datetime.datetime.now().strftime('%H:%M:%S')
+	seconds = datetime.datetime.now().strftime('%S')
+	now = time.mktime(datetime.datetime.now().timetuple())
+	doi = str(now).replace(".0", "") + '.' + seconds
+
+	file = open("/usr/src/app/static/library/dois.xml", "w")
+	file.write(str(counter) + "\t--\t" + doi  + "\n")
+	file.close()
+
 	xmlfile = open(filePath, 'rb')
-	# data = xmlfile.readlines()
-
-	# r = requests.post(OARurl, data=data, headers=headers)
-	# r = requests.put(url, data=xmlfile, headers=headers, auth=HTTPDigestAuth("*", "*"))
-
 	files = {'file': (filePath, xmlfile, MIME)}
-	serverResponse = requests.put(OARurl, files=files, headers=headers)
-	response = HttpResponse(serverResponse)
-	# response = HttpResponse(filePath)
+	# serverResponse = requests.put(OARurl, files=files, headers=headers)
+	response = HttpResponse(doi)
+	
 	return  response
