@@ -22,7 +22,8 @@ def plant_detail(request, plant_id):
 	return render(request, 'library/detail.html', {'plant': plant, 'plant_images': plant_images, 'counter': counter})
 
 def test(request):
-	XMLPath = '/usr/src/app/static/library/xml/';
+	XMLPath = '/usr/src/app/static/library/xml/'
+
 	templateFile = XMLPath + 'temp/dataset-submission-to-OAR.xml'
 	testDir = 'test/'
 	XMLPath += testDir
@@ -91,10 +92,14 @@ def test(request):
 
 	XMLFile = XMLPath + doi  + '.xml';
 
-	file = open(XMLFile, 'w+')
+	file = open(XMLFile, 'w')
 	file.write(newXMLContentStr)
+	file.close()
+
+	file = open(XMLFile, 'rb')
 
 	files = {'file': (XMLFile, file, MIME)}
+
 	serverResponse = requests.put(OARurl, files=files, headers=headers)
 	resp = str(newXMLContentStr) + '<br><br>Server Response' + str(serverResponse)
 	response = HttpResponse(resp)

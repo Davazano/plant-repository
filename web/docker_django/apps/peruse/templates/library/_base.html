@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}ACEPRD Plant Library{% endblock %}</title>
+    <title>{% block title %}ACEPRD Plant Repository{% endblock %}</title>
+    <!-- load static file -->
     {% load staticfiles %}
     <link rel="shortcut icon" type="image/png" href="{%  static 'favicon.png' %}"/>
     <link rel="stylesheet" href="{% static 'library/css/bootstrap.css' %}">
@@ -15,10 +16,6 @@
     <script src="{% static 'library/js/main.js' %}"></script>
 </head>
 <body>
-<div class="top-banner">
-    <img src="{% static 'library/images/phytomedicine.png' %}" height="74" alt="banner" />
-    <img class="pull-right" src="{% static 'library/images/unijos.png' %}" height="74" alt="banner" />
-</div>
 <nav class="navbar navbar-generic">
     <div class="container-fluid">
 
@@ -29,35 +26,116 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'peruse.index' %}">ACEPRD Plant Library</a>
+            <a class="navbar-brand" href="#">ACEPRD Plant Repository</a>
         </div>
 
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="{% block index_active %}{% endblock %}"><a href="{% url 'peruse.index' %}"><i class="fa fa-book"></i>&nbsp; Plant Library</a></li>
-                <!--<li class=""><a href="http://unijos.edu.ng/" target="_blank">University of Jos</a></li>-->
+                <li class="{% block index_active %}{% endblock %}"><a href="{% url 'peruse.index' %}"><i class="fa fa-home"></i>&nbsp; Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Researcher Guide <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{% block upload_active %}{% endblock %}"><a href="#">Upload medicinal plant project</a></li>                        
+                        <li class="{% block download_active %}{% endblock %}"><a href="#">Download medicinal plant project</a></li>
+                    </ul>
+                </li>
+                <li class="{% block forum_active %}{% endblock %}"><a href="#">Discussion Forum</a></li>
             </ul>
-            
+           
             <ul class="nav navbar-nav navbar-right">
-                <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'peruse.index' %}">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Plant Name" name="q" value="{{ request.GET.q }}">
-                    </div>
-                    <button type="submit" class="btn btn-default">Search &nbsp;<i class="fa fa-book"></i></button>
-                </form>
+                <li class="{% block signin_active %}{% endblock %}"><a href="#"><i class="fa fa-sign-in"></i>&nbsp;Login</a></li>
+                <li class="{% block register_active %}{% endblock %}"><a href="#"><i class="fa fa-user-circle"></i>&nbsp;Register</a></li>
             </ul>
         </div>
 
     </div>
 </nav>
 
-{% block body %}
+<!-- body content -->
+<div class="doc-content-wrap">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-2 content-offset-1 side">
+                <h4>Search</h4>
+                <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'peruse.index' %}">
+                    <div class="input-group bottom-margin">
+                        <select class="form-control" name="">
+                            <option value="">Common Name</option>
+                            <option value="">Botanical Name</option>
+                        </select>
+                    </div>
+                    <div class="input-group bottom-margin">
+                        <input type="text" class="form-control" placeholder="Plant Name" name="q" value="{{ request.GET.q }}">
+                    </div>
+                    <button type="submit" class="btn btn-generic bottom-margin">Search</button>
+                </form>
+                <table height="107" border="0" align="center" cellpadding="5" class="alphtable">
+                    <tr>
+                        <td height="101" class="alphtable" id="alphtable" align="center">
+                            <p><strong>
+                                <a href="" class="link-generic">A</a>
+                                <a href="" class="link-generic">B</a>
+                                <a href="" class="link-generic">C</a>
+                                <a href="" class="link-generic">D</a>
+                                <a href="" class="link-generic">E</a>
+                                <a href="" class="link-generic">F</a>
+                                <a href="" class="link-generic">G</a>
+                                <a href="" class="link-generic">H</a>
+                                <a href="" class="link-generic">I</a>
+                                <a href="" class="link-generic">J</a>
+                                <a href="" class="link-generic">K</a>
+                                <a href="" class="link-generic">L</a>
+                                <a href="" class="link-generic">M</a>
+                                <a href="" class="link-generic">N</a>
+                                <a href="" class="link-generic">O</a>
+                                <a href="" class="link-generic">P</a>
+                                <a href="" class="link-generic">Q</a>
+                                <a href="" class="link-generic">R</a>
+                                <a href="" class="link-generic">S</a>
+                                <a href="" class="link-generic">T</a>
+                                <a href="" class="link-generic">U</a>
+                                <a href="" class="link-generic">V</a>
+                                <a href="" class="link-generic">W</a>
+                                <a href="" class="link-generic">X</a>
+                                <a href="" class="link-generic">Y</a>
+                                <a href="" class="link-generic">Z</a>
+                            </strong></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-xs-12 col-md-7 page-content content-offset-1-05">
+                {% block center %}
 
-{% endblock %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-md-2 page-content content-offset-1-05">
+                {% block leftSide %}
 
-<div class="hit-counter pull-right">
-    <p class="text-center"><span class="label label-generic">{{ counter }}</span> views</p>
+                {% endblock %}
+
+                <div class="hit-counter pull-right">
+                    <p class="text-center"><span class="label label-generic">{{ counter }}</span> views</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- /end of body content -->
+
+<footer class="footer">
+    <div class="footer-element pull-right">
+        <ul>
+            <li><a href="#" class="link-generic">FAQs</a></li>
+            <li><a href="#" class="link-generic">Privacy</a></li>
+            <li><a href="#" class="link-generic">Contact Us</a></li>
+            <li><a href="#" class="link-generic">FAQs</a></li>
+        </ul>
+    </div>
+    <div>
+        @ ACEPRD
+    </div>
+</footer>
 </body>
 </html>
