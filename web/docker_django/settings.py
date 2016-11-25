@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # apps
     'docker_django.apps.peruse',
+    'docker_django.apps.dashboard',
 )
 
 MIDDLEWARE_CLASSES = (

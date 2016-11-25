@@ -1,0 +1,24 @@
+{% extends 'dashboard/_base.html' %}
+{% block index_active %}active{% endblock %}
+
+{% block body %}
+<div class="library-container container-fluid">
+
+    <!-- Plants -->
+    <div class="row">
+        <div class="col-sm-12 col-md-4 col-md-offset-4">
+            <h3 class="text-center">Dashboard</h3>
+            <form class="navbar-form navbar-left" role="search" method="post" action="{/% url 'dashboard.login' %}">
+                <div class="input-group bottom-margin">
+                    <input type="email" class="form-control" placeholder="Email Address" name="email" value="{{ request.POST.email }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="password" class="form-control" placeholder="Password" name="q">
+                </div>
+                <button type="submit" class="btn btn-generic bottom-margin">Search</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

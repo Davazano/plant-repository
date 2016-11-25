@@ -32,7 +32,7 @@
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
-                <li class="{% block index_active %}{% endblock %}"><a href="{% url 'peruse.index' %}"><i class="fa fa-home"></i>&nbsp; Home</a></li>
+                <li class="{% block index_active %}{% endblock %}"><a href="{% url 'dashboard.index' %}"><i class="fa fa-home"></i>&nbsp; Home</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Researcher Guide <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -44,7 +44,7 @@
             </ul>
            
             <ul class="nav navbar-nav navbar-right">
-                <li class="{% block signin_active %}{% endblock %}"><a href="{% url 'dashboard.login' %}"><i class="fa fa-sign-in"></i>&nbsp;Login</a></li>
+                <li class="{% block signin_active %}{% endblock %}"><a href="#"><i class="fa fa-sign-in"></i>&nbsp;Login</a></li>
                 <li class="{% block register_active %}{% endblock %}"><a href="#"><i class="fa fa-user-circle"></i>&nbsp;Register</a></li>
             </ul>
         </div>
