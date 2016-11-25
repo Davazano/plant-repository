@@ -46,5 +46,12 @@ class PlantImage(models.Model):
     def __str__(self):
         return self.image_name
 
+class OARUploadStatus(models.Model):
+    doi = models.CharField(max_length = 250)
+    status = models.BooleanField(default = False)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    is_visible = models.BooleanField(default = False)
 
-    
+    def __str__(self):
+        return self.doi
