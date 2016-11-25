@@ -1,0 +1,74 @@
+{% extends 'library/_base.html' %}
+{% block login_active %}active{% endblock %}
+
+{% block title %}Upload Plant Info - ACEPRD Plant Repository{% endblock %}
+
+{% block body %}
+<div class="library-container container-fluid">
+
+    <!-- Plants -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Upload Plant Information</h3>
+            <form class="navbar-form navbar-left" role="search" method="post" action="">
+                <div class="input-group bottom-margin">
+                    <label>Botanical Name</label>
+                    <input type="text" class="form-control" placeholder="Botanical Name" name="plant_botanical_name" value="{{ request.POST.plant_botanical_name }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <label>Order</label>
+                    <input type="text" class="form-control" placeholder="Order" name="plant_order" value="{{ request.POST.plant_order }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <label>Family</label>
+                    <input type="text" class="form-control" placeholder="Family" name="plant_family" value="{{ request.POST.plant_family }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <label>Genus</label>
+                    <input type="text" class="form-control" placeholder="Genus" name="plant_genus" value="{{ request.POST.plant_genus }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <label>Species</label>
+                    <input type="text" class="form-control" placeholder="Species" name="plant_species" value="{{ request.POST.plant_species }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <label>Binomial Name</label>
+                    <input type="text" class="form-control" placeholder="Binomial Name" name="plant_binomial_name" value="{{ request.POST.plant_binomial_name }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <label>Native Name</label>
+                    <input type="text" class="form-control" placeholder="Native Name" name="plant_native_name" value="{{ request.POST.plant_native_name }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <label>Synonyms</label>
+                    <input type="text" class="form-control" placeholder="Synonyms" name="plant_synonyms" value="{{ request.POST.plant_synonyms }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="text" class="form-control" placeholder="email" name="email" value="{{ request.POST.email }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="text" class="form-control" placeholder="email" name="email" value="{{ request.POST.email }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="text" class="form-control" placeholder="email" name="email" value="{{ request.POST.email }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="text" class="form-control" placeholder="email" name="email" value="{{ request.POST.email }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="text" class="form-control" placeholder="email" name="email" value="{{ request.POST.email }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="text" class="form-control" placeholder="email" name="email" value="{{ request.POST.email }}">
+                </div>
+                <div class="input-group bottom-margin">
+                    <input type="Password" class="form-control" placeholder="Password" name="mpass" value="">
+                </div>
+                {{ crsf_token() }}
+                <button type="submit" class="btn btn-generic bottom-margin">Upload</button>
+            </form>
+        </div>        
+    </div>
+
+</div>
+{% endblock %}

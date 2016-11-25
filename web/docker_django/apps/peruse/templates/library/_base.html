@@ -33,20 +33,29 @@
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
                 <li class="{% block index_active %}{% endblock %}"><a href="{% url 'peruse.index' %}"><i class="fa fa-home"></i>&nbsp; Home</a></li>
+                {% if authenticated %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Researcher Guide <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li class="{% block upload_active %}{% endblock %}"><a href="#">Upload medicinal plant project</a></li>                        
+                        <li class="{% block upload_active %}{% endblock %}"><a href="{% url 'dashboard.uploadPlantInfo' %}">Upload medicinal plant Information</a></li>                        
                         <li class="{% block download_active %}{% endblock %}"><a href="#">Download medicinal plant project</a></li>
                     </ul>
                 </li>
+                {% endif %}
                 <li class="{% block forum_active %}{% endblock %}"><a href="#">Discussion Forum</a></li>
             </ul>
            
-            <ul class="nav navbar-nav navbar-right">
-                <li class="{% block signin_active %}{% endblock %}"><a href="{% url 'dashboard.login' %}"><i class="fa fa-sign-in"></i>&nbsp;Login</a></li>
-                <li class="{% block register_active %}{% endblock %}"><a href="#"><i class="fa fa-user-circle"></i>&nbsp;Register</a></li>
-            </ul>
+            {% if authenticated %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'dashboard.logout_user' %}"><i class="fa fa-sign-in"></i>&nbsp;Logout</a></li>
+                    <li><a><i class="fa fa-user-circle"></i>&nbsp;{{ username }}</a></li>
+                </ul>
+            {% else %}
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="{% block login_active %}{% endblock %}"><a href="{% url 'dashboard.signin' %}"><i class="fa fa-sign-in"></i>&nbsp;Login</a></li>
+                    <li class="{% block register_active %}{% endblock %}"><a href="#"><i class="fa fa-user-circle"></i>&nbsp;Register</a></li>
+                </ul>
+            {% endif %}
         </div>
 
     </div>
@@ -115,9 +124,11 @@
 
                 {% endblock %}
 
-                <div class="hit-counter pull-right">
-                    <p class="text-center"><span class="label label-generic">{{ counter }}</span> views</p>
-                </div>
+                {% if counter %}
+                    <div class="hit-counter pull-right">
+                        <p class="text-center"><span class="label label-generic">{{ counter }}</span> views</p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,0 +1,21 @@
+{% extends 'library/_base.html' %}
+{% block login_active %}active{% endblock %}
+
+{% block title %}Login - ACEPRD Plant Repository{% endblock %}
+
+{% block center %}
+    <div class="col-sm-12">
+        <h3>Login</h3>
+        <form class="navbar-form navbar-left" role="search" method="post" action="{% url 'dashboard.signin' %}">
+            <div class="input-group bottom-margin">
+                <input type="username" class="form-control" placeholder="Username" name="username" value="{{ request.POST.username }}">
+            </div>
+            <br>
+            <div class="input-group bottom-margin">
+                <input type="Password" class="form-control" placeholder="Password" name="password" value="">
+            </div>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-generic bottom-margin">Login</button>
+        </form>
+    </div>
+{% endblock %}
