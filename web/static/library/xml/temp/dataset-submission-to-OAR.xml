@@ -2,17 +2,17 @@
 <collection xmlns="http://www.loc.gov/MARC21/slim">
 <record xmlns="http://www.loc.gov/MARC21/slim">
       <datafield tag="024" ind1="7" ind2=" ">
-           <subfield code="a">10.15169/sci-gaia:1479980851.79</subfield>
+           <subfield code="a">{doi}</subfield>
            <subfield code="2">DOI</subfield>
     </datafield>
     <datafield tag="260" ind1=" " ind2=" ">
-    <subfield code="c">2016-11-16</subfield>
+    <subfield code="c">{date}</subfield>
      </datafield>
      <datafield tag="100" ind1=" " ind2=" ">
-          <subfield code="a">David Oguche</subfield>
-          <subfield code="v">University of City</subfield>
-          <subfield code="w">Nigeria</subfield>
-          <subfield code="j">0000-0002-5532-8201</subfield>
+          <subfield code="a">{author1}</subfield>
+          <subfield code="v">{university1}</subfield>
+          <subfield code="w">{country1}</subfield>
+          <subfield code="j">(number1)</subfield>
     </datafield>
     <datafield tag="245" ind1=" " ind2=" ">
           <subfield code="a">Dataset submission to OAR</subfield>
@@ -21,17 +21,17 @@
           <subfield code="a">Dataset - e-Research Summer Hackfest  - Lagos Sci-GaIA project</subfield>
     </datafield>
     <datafield tag="540" ind1=" " ind2=" ">
-           <subfield code="a">cc-by-nc-sa</subfield>
-           <subfield code="u">https://creativecommons.org/licenses/by-nc-sa/3.0/</subfield>
+           <subfield code="a">{license}</subfield>
+           <subfield code="u">{licenseURL}</subfield>
     </datafield>
     <datafield tag="536" ind1=" " ind2=" ">
-      <subfield code="c">Sci-GaIA - Energising Scientific Endeavour through Science Gateways and e-Infrastructures in Africa</subfield>
+      <subfield code="c">{project}</subfield>
   </datafield>
     <datafield tag="700" ind1=" " ind2=" ">
-            <subfield code="a">John Johnson</subfield>
-            <subfield code="v">University of Catania</subfield>
-            <subfield code="w">Italy</subfield>
-            <subfield code="j">0000-0002-5532-8201</subfield>
+            <subfield code="a">{author2}</subfield>
+            <subfield code="v">{university2}</subfield>
+            <subfield code="w">{country2}</subfield>
+            <subfield code="j">{number2}</subfield>
     </datafield>
     <datafield tag="999" ind1="C" ind2="5">
       <subfield code="9">CURATOR</subfield>
@@ -41,16 +41,16 @@
             <subfield code="y">2016</subfield>
     </datafield>
      <datafield tag="653" ind1="1" ind2=" ">
-           <subfield code="a">Sci-GaIA</subfield>
+           <subfield code="a">{tag1}</subfield>
          </datafield>
         <datafield tag="653" ind1="1" ind2=" ">
-           <subfield code="a">Science Gateway</subfield>
+           <subfield code="a">{tag2}</subfield>
          </datafield>
     <datafield tag="653" ind1="1" ind2=" ">
-           <subfield code="a">Open Access</subfield>
+           <subfield code="a">{tag3}</subfield>
          </datafield>
     <datafield tag="FFT" ind1="" ind2=" ">
-          <subfield code="a">http://grid.ct.infn.it/hackfest/example-dataset.csv</subfield>
+          <subfield code="a">{datasetFile}</subfield>
     </datafield>
     <datafield xmlns="" tag="980" ind1=" " ind2=" ">
           <subfield code="a">DATASETSACEPRD</subfield>
