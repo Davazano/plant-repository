@@ -14,30 +14,33 @@
                 <p><strong>{{ resp }}</strong></p>
             {% endif %}
 
-            <h3>Upload Plant Information</h3>
-            <ul class="nav nav-tabs">
-                <li role="presentation" class="active"><a href="#1a">Plant Information Form</a></li>
-                <li role="presentation"><a href="#2a">Plant Images</a></li>
-                <li role="presentation"><a href="#3a">Plant Research Datasets</a></li>
-            </ul>            
-            
-            <div id="genericTab" class="container"> 
-                <div class="tab-content clearfix">
-                    <div class="tab-pane active" id="1a">
+            <div id="genericTab"> 
+                <h3>Upload Plant Information</h3>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#plantInfo" data-toggle="tab">Plant Information Form</a></li>
+                    <li><a href="#plantImages" data-toggle="tab">Plant Images</a></li>
+                    <li><a href="#plantDatasets" data-toggle="tab">Plant Research Datasets</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="plantInfo">
                         <h4>Basic Plant Information</h4>
                         {% include 'library/plantUploadForm.html' %}
                     </div>
-                    <div class="tab-pane" id="2a">
+
+                    <div class="tab-pane" id="plantImages">
                         <h4>Plant Images</h4>
                         <h5>(Upload Roots,Flowers and other images of plant parts)</h5>
                         {% include 'library/plantImagesUploadForm.html' %}
                     </div>
-                    <div class="tab-pane" id="3a">
+
+                    <div class="tab-pane" id="plantDatasets">
                         <h4>Upload Plant Research Results</h4>
                         <h5>(upload csv files)</h5>
                         {% include 'library/plantDatasetsUploadForm.html' %}
                     </div>
-                </div>
+                </div>                
             </div>
 
         </div>        
