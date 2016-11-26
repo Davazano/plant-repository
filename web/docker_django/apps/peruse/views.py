@@ -4,12 +4,14 @@ from django.shortcuts import render, get_object_or_404 # redirect
 from .models import Plant, PlantImage
 from redis import Redis
 from django.http import HttpResponse
-from .forms import UserForm, PlantInfoForm
+from .forms import UserForm, PlantInfoForm, PlantImagesForm
 from . import helpers
 
 import requests
 import datetime
 import time
+
+IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 
 redis = Redis(host='redis', port=6379)
 
@@ -174,7 +176,9 @@ def logout_user(request):
 
 def uploadPlantInfo(request):
 	form = PlantInfoForm(request.POST or None)
-	context = { "form": form }
+	form2 = PlantImagesForm(request.POST or None, request.FILES or None)
+	plants = Plant.objects.filter(is_visible = True)
+	context = { 'form': form, 'form2': form2, 'plants': plants }
 	fillAuthContext(request, context)
 	if form.is_valid():
 		plantInfo = form.save(commit=False)
@@ -200,10 +204,67 @@ def uploadPlantInfo(request):
 		plantInfo.is_visible = True
 		plantInfo.user = request.user
 		if plantInfo.save():
-			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + 'was successful.'
+			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + ' was successful.'
 			context['status'] = 'success'
 		else:
-			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + 'failed.'
+			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + ' failed.'
 			context['status'] = 'fail'
-		return render(request, 'library/detail.html', {'plantInfo': plantInfo})
+	return render(request, 'library/uploadPlantInfo.html', context)
+
+# def uploadPlantImages(request):
+# 	form = PlantImagesForm(request.POST, request.FILES)
+# 	context = { "form": form }
+# 	fillAuthContext(request, context)
+# 	if form.is_valid():
+# 		for filename, file in request.FILES.iteritems():
+# 			name = request.FILES[filename].name
+#     		return HttpResponse(name)
+# 		# palntImages = form.save(commit=False)
+# 		# palntImages.plant = 'Test image'
+# 		# palntImages.image_name = 'Test image'
+# 		# palntImages.image_file = request.FILES['album_logo']
+# 		# palntImages.image_description = 'Test image'
+# 		# palntImages.image_caption = 'Test image'
+#   #       # palntImages.user = request.user
+#   #       file_type = album.image_file.url.split('.')[-1]
+#   #       file_type = file_type.lower()
+#   #       if file_type not in IMAGE_FILE_TYPES:
+#   #           context = {
+#   #               'palntImages': palntImages,
+#   #               'form': form,
+#   #               'resp': 'Image file must be PNG, JPG, or JPEG',
+#   #           }
+#   #           return render(request, 'library/uploadPlantInfo.html', context)
+#   #       palntImages.save()
+
+#   #       context['resp'] = 'Image uploads were successful.'
+# 		# context['status'] = 'success'
+#   #       return render(request, 'library/uploadPlantInfo.html', context)
+# 		# return HttpResponse("Uploaded")
+# 		# request.FILES.get('images')
+# 		# return HttpResponse(form)
+# 	return HttpResponse("Failed Upload")
+# 	# return render(request, 'library/uploadPlantInfo.html', context)
+
+def uploadPlantImages(request):
+	form = PlantInfoForm(request.POST or None)
+	form2 = PlantImagesForm(request.POST or None, request.FILES or None)
+	counter = redis.incr('counter')
+	context = {'form': form, 'form2': form2, 'counter': counter}
+	fillAuthContext(request, context)
+	if form2.is_valid():
+		for filename, file in request.FILES.items():
+			plantImage = form2.save(commit=False)
+			plantImage.plant =  get_object_or_404(Plant, pk = request.POST.get('plant'))
+			plantImage.image_name =  request.POST.get('image_name')
+			plantImage.image_file =  request.FILES[filename]
+			plantImage.image_description =  request.POST.get('image_description')
+			plantImage.image_caption = request.POST.get('image_caption')
+
+			if plantImage.save():
+				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' was successful.'
+				context['status'] = 'success'
+			else:
+				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' failed.'
+				context['status'] = 'fail'
 	return render(request, 'library/uploadPlantInfo.html', context)

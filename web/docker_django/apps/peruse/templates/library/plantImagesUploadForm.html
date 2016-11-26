@@ -1,29 +1,31 @@
 <p>Upload Images</p>
-<form class="form-horizontal">
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+<p>You can upload as many images as you would like.</p>
+<p>Ensure you upload images that can be used to identify the plant such as Flowers, Leaves, and so on.</p>
+
+<form action="{% url 'dashboard.uploadPlantImages' %}" method="POST" id="my-awesome-dropzone" enctype="multipart/form-data">
+	{% for field in form2 %}
+    <div class="form-group bottom-margin">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small">{{ field.errors }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="song_title">{{ field.label_tag }}</label>
+        <div class="col-sm-10">{{ field }}</div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Remember me
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
-  </div>
+	{% endfor %}
+	<!-- <hr>
+	<div class="form-group bottom-margin">
+        <label>Plant</label>
+        <select class="form-control" placeholder="Plant" name="plant_id">
+        	<option>--SELECT A PLANT--</option>
+        	{/% if plants %}
+	            {/% for plant in plants %}
+	            	<option value="{/{ plant.id }}">{/{ plant.plant_name }}</option>
+	            {/% endfor %}
+            {/% endif %}
+        </select>
+    </div> -->
+	<!-- <input multiple="multiple" type="file" name="images" class="dz-hidden-input"> -->
+    {% csrf_token %}
+    <button type="submit" class="btn btn-generic bottom-margin">Upload</button>
 </form>
+<br><br>

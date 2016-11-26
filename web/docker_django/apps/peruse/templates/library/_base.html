@@ -10,6 +10,9 @@
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'library/css/style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}"/>
+    {% block css %}
+
+    {% endblock %}
 </head>
 <body>
 <nav class="navbar navbar-generic">
@@ -148,7 +151,8 @@
 <script src="{% static 'library/js/jquery.js' %}"></script>
 <script src="{% static 'library/js/bootstrap.js' %}"></script>
 <script src="{% static 'library/js/main.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+{% block js %}
+
+{% endblock %}
 </body>
 </html>
