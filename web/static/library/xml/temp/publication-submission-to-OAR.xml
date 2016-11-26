@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record xmlns="http://www.loc.gov/MARC21/slim">
+      <datafield tag="024" ind1="7" ind2=" ">
+           <subfield code="a">{doiId}</subfield>
+           <subfield code="2">{idType}</subfield>
+    </datafield>
+    <datafield tag="260" ind1=" " ind2=" ">
+	  <subfield code="c">{date}</subfield>
+     </datafield>
+     <datafield tag="100" ind1=" " ind2=" ">
+          <subfield code="a">{surname}</subfield>
+          <subfield code="v">{organisation/company}</subfield>
+          <subfield code="w">{company}</subfield>
+          <subfield code="j">{orcid}</subfield>
+    </datafield>
+    <datafield tag="245" ind1=" " ind2=" ">
+          <subfield code="a">{resTitle}</subfield>
+    </datafield>
+    <datafield tag="520" ind1=" " ind2=" ">
+          <subfield code="a">{abstract}</subfield>
+    </datafield>
+    <datafield tag="540" ind1=" " ind2=" ">
+           <subfield code="a">{licence}</subfield>
+           <subfield code="u">{licenceUrl}</subfield>
+    </datafield>
+    <datafield tag="536" ind1=" " ind2=" ">
+	    <subfield code="c">{resProject}</datafield>
+    <datafield tag="700" ind1=" " ind2=" ">
+            <subfield code="a">{surname2}</subfield>
+            <subfield code="v">{organisation/company2}</subfield>
+            <subfield code="w">{company2}</subfield>
+            <subfield code="j">{orcid2}</subfield>
+    </datafield>
+     <datafield tag="653" ind1="1" ind2=" ">
+           <subfield code="a">{keyword}</subfield>
+         </datafield>
+        <datafield tag="653" ind1="1" ind2=" ">
+           <subfield code="a">{keyword2}</subfield>
+         </datafield>
+     <datafield tag="999" ind1="C" ind2="5">
+            <subfield code="9">{curator}</subfield>
+            <subfield code="a">{doiRef}</subfield>
+            <subfield code="o">[1]</subfield>
+           <subfield code="t">{refTitle}</subfield>
+           <subfield code="y">{year}</subfield>
+    </datafield>
+    <datafield tag="653" ind1="1" ind2=" ">
+           <subfield code="a">{keyword3}</subfield>
+         </datafield>
+    <datafield tag="FFT" ind1="" ind2=" ">
+          <subfield code="a">{xmlLink}
+	</datafield>
+    <datafield xmlns="" tag="980" ind1=" " ind2=" ">
+          <subfield code="a">{uploadCat}</subfield>
+    </datafield>
+    <datafield xmlns="" tag="041" ind1=" " ind2=" ">
+          <subfield code="a">{language}</subfield>
+    </datafield>
+    <datafield xmlns="" tag="042" ind1=" " ind2=" ">
+          <subfield code="a">{researchers}</subfield>
+    </datafield>
+    <datafield xmlns="" tag="043" ind1=" " ind2=" ">
+           <subfield code="a">resType</subfield>
+    </datafield>
+  </record>
+</collection>
