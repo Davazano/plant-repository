@@ -1,5 +1,6 @@
 {% extends 'library/_base.html' %}
-{% block title %}{{ plant }}'s Details{% endblock %}
+{% block title %}{{ plant.plant_name }}'s Details{% endblock %}
+{% load staticfiles %}
 
 {% block body %}
 <div class="container-fluid songs-container">
@@ -14,7 +15,7 @@
                         {% if plant.plant_picture %}
                             <img src="{{ plant.plant_picture.url }}" class="img-responsive">
                         {% else %}
-                            <h3>No image to display</h3>
+                             <img src="{% static 'library/images/default.png' %}" class="img-responsive">
                         {% endif %}
                     </a>
                 </div>

@@ -4,7 +4,8 @@ from django.shortcuts import render, get_object_or_404 # redirect
 from .models import Plant, PlantImage
 from redis import Redis
 from django.http import HttpResponse
-from .forms import UserForm
+from .forms import UserForm, PlantInfoForm
+from . import helpers
 
 import requests
 import datetime
@@ -172,6 +173,37 @@ def logout_user(request):
     return render(request, 'library/login.html', context)
 
 def uploadPlantInfo(request):
-	context = {}
+	form = PlantInfoForm(request.POST or None)
+	context = { "form": form }
 	fillAuthContext(request, context)
-	return render(request, 'library/uploadFileInfo.html', context)
+	if form.is_valid():
+		plantInfo = form.save(commit=False)
+		plantInfo.plant_name = request.POST.get('plant_name')
+		plantInfo.plant_botanical_name = request.POST.get('plant_botanical_name')
+		plantInfo.plant_order = request.POST.get('plant_order')
+		plantInfo.plant_family = request.POST.get('plant_family')
+		plantInfo.plant_genus = request.POST.get('plant_genus')
+		plantInfo.plant_species = request.POST.get('plant_species')
+		plantInfo.plant_binomial_name = request.POST.get('plant_binomial_name')
+		plantInfo.plant_native_name = request.POST.get('plant_native_name')
+		plantInfo.plant_synonyms = request.POST.get('plant_synonyms')
+		plantInfo.plant_habitat = request.POST.get('plant_habitat')
+		plantInfo.plant_etymology = request.POST.get('plant_etymology')
+		plantInfo.plant_description = request.POST.get('plant_description')
+		plantInfo.plant_cultivation = request.POST.get('plant_cultivation')
+		plantInfo.plant_microscopy = request.POST.get('plant_microscopy')
+		plantInfo.plant_used_parts = request.POST.get('plant_used_parts')
+		plantInfo.plant_uses = request.POST.get('plant_uses')
+		plantInfo.plant_constituents = request.POST.get('plant_constituents')
+		plantInfo.plant_references = request.POST.get('plant_references')
+		# plantInfo.plant_author = request.POST.get('plant_author')
+		plantInfo.is_visible = True
+		plantInfo.user = request.user
+		if plantInfo.save():
+			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + 'was successful.'
+			context['status'] = 'success'
+		else:
+			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + 'failed.'
+			context['status'] = 'fail'
+		return render(request, 'library/detail.html', {'plantInfo': plantInfo})
+	return render(request, 'library/uploadPlantInfo.html', context)

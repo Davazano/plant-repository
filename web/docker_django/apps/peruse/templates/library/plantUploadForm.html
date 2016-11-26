@@ -1,0 +1,80 @@
+<form class="" role="search" method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="bottom-margin">
+        <label>Plant Name</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Plant Name" name="plant_name" value="{{ request.POST.plant_name }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Botanical Name</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Botanical Name" name="plant_botanical_name" value="{{ request.POST.plant_botanical_name }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Order</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Order" name="plant_order" value="{{ request.POST.plant_order }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Family</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Family" name="plant_family" value="{{ request.POST.plant_family }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Genus</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Genus" name="plant_genus" value="{{ request.POST.plant_genus }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Species</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Species" name="plant_species" value="{{ request.POST.plant_species }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Binomial Name</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Binomial Name" name="plant_binomial_name" value="{{ request.POST.plant_binomial_name }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Native Names</label>
+        <textarea class="generic-form-control col-md-6" name="plant_native_name">{{ request.POST.plant_native_name }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Synonyms</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Synonyms" name="plant_synonyms" value="{{ request.POST.plant_synonyms }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Habitat</label>
+        <textarea class="generic-form-control col-md-6" name="plant_habitat">{{ request.POST.plant_habitat }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Etymology</label>
+        <textarea class="generic-form-control col-md-6" name="plant_etymology">{{ request.POST.plant_etymology }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Description</label>
+        <textarea class="generic-form-control col-md-6" name="plant_description">{{ request.POST.plant_description }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Cultivation</label>
+        <textarea class="generic-form-control col-md-6" name="plant_cultivation">{{ request.POST.plant_cultivation }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Microscopy</label>
+        <textarea class="generic-form-control col-md-6" name="plant_microscopy">{{ request.POST.plant_microscopy }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Used Plant</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Uses" name="plant_used_parts" value="{{ request.POST.plant_used_parts }}">
+    </div>
+    <div class="bottom-margin">
+        <label>Uses</label>
+        <textarea class="generic-form-control col-md-6" name="plant_uses">{{ request.POST.plant_uses }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Constituents</label>
+        <textarea class="generic-form-control col-md-6" name="plant_constituents">{{ request.POST.plant_constituents }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>References</label>                    
+        <textarea class="generic-form-control col-md-6" name="plant_references">{{ request.POST.plant_references }}</textarea>
+    </div>
+    <div class="bottom-margin">
+        <label>Author</label>
+        <input type="text" class="generic-form-control col-md-6" placeholder="Author" name="plant_author" value="{{ request.POST.plant_author }}">
+    </div>
+    <button type="submit" class="btn btn-generic bottom-margin">Upload</button>
+</form>
