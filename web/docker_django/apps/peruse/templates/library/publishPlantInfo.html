@@ -1,0 +1,63 @@
+{% extends 'library/_base.html' %}
+{% block login_active %}active{% endblock %}
+
+{% block title %}Upload Plant Info - ACEPRD Plant Repository{% endblock %}
+
+{% block center %}
+<div class="library-container container-fluid">
+
+    <!-- Plants -->
+    <div class="row">
+        <div class="col-sm-12">
+
+            {% if resp %}
+                <p><strong>{{ resp }}</strong></p>
+            {% endif %}
+
+            <h3>Publish Plant Details</h3>
+            <form method="Post" action="">
+                <table class="table table-stripped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Common Name</td>
+                            <td>Botanical Name</td>
+                            <td>Family</td>
+                            <td>Status</td>
+                            <td>View Details</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if plants %}
+                            {% for plant in plants %}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="plant_{{ plant.id }}" value="{{ plant.id }}">
+                                    </td>
+                                    <td>{{ plant.plant_name }}</td>
+                                    <td>{{ plant.plant_botanical_name }}</td>
+                                    <td>{{ plant.plant_family }}</td>
+                                    <td>
+                                    {% if plant.is_visible %} 
+                                        <span class="label label-info">Published</span> 
+                                    {% else %} 
+                                        <span class="label label-warning">Unpublished</span>
+                                    {% endif %}
+                                    </td>
+                                    <td><a class="btn btn-info" href="{% url 'peruse.plant_detail' plant.id %}">View</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+                <br><br>
+                {% csrf_token %}
+                <button class="btn btn-generic" type="submit">Submit</button>
+            </form>
+            <br><br>
+            
+        </div>        
+    </div>
+
+</div>
+{% endblock %}

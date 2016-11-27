@@ -10,5 +10,7 @@ urlpatterns = [
 	url(r'^dashboard/logout_user/$', views.logout_user, name='dashboard.logout_user'),
 	url(r'^dashboard/upload-plant-info/', views.uploadPlantInfo, name='dashboard.uploadPlantInfo'),
 	url(r'^dashboard/upload-plant-images/', views.uploadPlantImages, name='dashboard.uploadPlantImages'),
+	url(r'^dashboard/publish-plant/', views.PublishPlantInfo, name='dashboard.PublishPlantInfo'),
+	url(r'^dashboard/publish-plant-image/', views.PublishPlantImage, name='dashboard.PublishPlantImage'),
 	url(r'^test/', views.test, name='peruse.test')
 ]

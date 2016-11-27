@@ -1,9 +1,9 @@
 from . import models
 
-def sendData(request, XMLparams):
+def sendImageToOAR(request, XMLparams):
 	XMLPath = '/usr/src/app/static/library/xml/'
 
-	templateFile = XMLPath + 'temp/dataset-submission-to-OAR.xml'
+	templateFile = XMLPath + 'temp/image-submission-to-OAR.xml'
 	testDir = 'test/'
 	XMLPath += testDir
 	MIME = 'application/marcxml+xml'

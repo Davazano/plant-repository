@@ -53,7 +53,7 @@
           <subfield code="a">{xmlLink}</subfield>
     </datafield>
     <datafield xmlns="" tag="980" ind1=" " ind2=" ">
-          <subfield code="a">{uploadcategory}</subfield>
+          <subfield code="a">{uploadCategory}</subfield>
     </datafield>
     <datafield xmlns="" tag="041" ind1=" " ind2=" ">
           <subfield code="a">{language}</subfield>

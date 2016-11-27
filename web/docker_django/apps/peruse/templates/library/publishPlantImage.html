@@ -1,0 +1,67 @@
+{% extends 'library/_base.html' %}
+{% block login_active %}active{% endblock %}
+
+{% block title %}Publish Plant Images- ACEPRD Plant Repository{% endblock %}
+
+{% block center %}
+<div class="library-container container-fluid">
+
+    <!-- Plants -->
+    <div class="row">
+        <div class="col-sm-12">
+
+            {% if resp %}
+                <p><strong>{{ resp }}</strong></p>
+            {% endif %}
+
+            <h3>Publish Plant Images</h3>
+            <form method="Post" action="">
+                <table class="table table-stripped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Common Name</td>
+                            <td>Botanical Name</td>
+                            <td>Image</td>
+                            <td>Caption</td>
+                            <td>Status</td>
+                            <td>View Details</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if plantImages %}
+                            {% for plantImage in plantImages %}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="plant_{{ plantImage.id }}" value="{{ plantImage.id }}">
+                                    </td>
+                                    <td>{{ plantImage.plant }}</td>
+                                    <td>{{ plantImage.image_name }}</td>
+                                    <td><img src="{{ plantImage.image_file.url }}" class="img-responsive"></td>
+                                    <td>{{ plantImage.image_caption }}</td>
+                                    <td>
+                                    {% if plantImage.is_visible %} 
+                                        <span class="label label-info">Published</span> 
+                                    {% else %} 
+                                        <span class="label label-warning">{{ plantImage.is_visible }}</span>
+                                    {% endif %}
+                                    </td>
+                                    <td><a class="btn btn-info" href="{% url 'peruse.plant_detail' plantImage.plant.id %}">View Plant</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+                <br><br>
+                {% csrf_token %}
+                <button class="btn btn-generic" type="submit">Submit</button>
+            </form>
+            <br><br>
+
+            <!-- <p>{/{ data }}</p> -->
+            
+        </div>        
+    </div>
+
+</div>
+{% endblock %}

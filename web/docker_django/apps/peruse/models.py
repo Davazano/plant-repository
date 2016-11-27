@@ -35,6 +35,12 @@ class Plant(models.Model):
     def __str__(self):
         return self.plant_name
 
+    def id(self):
+        return self.id
+
+    def botanicalName(self):
+        return self.plant_botanical_name
+
 class PlantImage(models.Model):
     plant = models.ForeignKey(Plant, on_delete = models.CASCADE)
     image_name = models.CharField(max_length = 250, blank = True)
@@ -48,6 +54,7 @@ class PlantImage(models.Model):
 
 class OARUploadStatus(models.Model):
     doi = models.CharField(max_length = 250)
+    oar_type = models.CharField(max_length = 50)
     status = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)

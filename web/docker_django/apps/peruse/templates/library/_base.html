@@ -40,6 +40,13 @@
                         <li class="{% block download_active %}{% endblock %}"><a href="#">Download medicinal plant project</a></li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Publish <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'dashboard.PublishPlantInfo' %}">Plant Info</a></li>                       
+                        <li><a href="{% url 'dashboard.PublishPlantImage' %}">Plant Image</a></li>
+                    </ul>
+                </li>
                 {% endif %}
                 <li class="{% block forum_active %}{% endblock %}"><a href="#">Discussion Forum</a></li>
             </ul>

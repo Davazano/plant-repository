@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from .forms import UserForm, PlantInfoForm, PlantImagesForm
 from . import helpers
 
+from django.core import serializers
+
 import requests
 import datetime
 import time
@@ -268,3 +270,31 @@ def uploadPlantImages(request):
 				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' failed.'
 				context['status'] = 'fail'
 	return render(request, 'library/uploadPlantInfo.html', context)
+
+
+def PublishPlantInfo(request):
+	plants = Plant.objects.all()
+	context = { 'plants': plants }
+	fillAuthContext(request, context)
+	# if request.POST:
+	# 	for plantId in request.POST.items():
+	# 		if plantId != 'csrfmiddlewaretoken':
+	# 			# send plant image to OAR
+	# 	return HttpResponse(request.POST)
+	return render(request, 'library/publishPlantInfo.html', context)
+
+def PublishPlantImage(request):
+	plantImages = PlantImage.objects.all()
+	# return HttpResponse(plantImages)
+
+	data = serializers.serialize("json", plantImages, indent=4)
+	context = { 'plantImages': plantImages, 'data': data }
+	fillAuthContext(request, context)
+	if request.POST:
+		for plantImageId in request.POST.items():
+			if plantImageId != 'csrfmiddlewaretoken':
+				# sendImageToOAR(XMLparams)
+				return HttpResponse("send to OAR")
+				# send plant image to OAR
+		return HttpResponse(request.POST)
+	return render(request, 'library/publishPlantImage.html', context)
