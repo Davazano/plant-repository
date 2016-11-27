@@ -9,6 +9,8 @@ from . import helpers
 
 from django.core import serializers
 
+import os
+
 import requests
 import datetime
 import time
@@ -283,18 +285,64 @@ def PublishPlantInfo(request):
 	# 	return HttpResponse(request.POST)
 	return render(request, 'library/publishPlantInfo.html', context)
 
+def fillImageXMLParams(plantImage):
+	author = 'David Oguche'
+	organisation = 'University of Jos'
+	country = 'Nigeria'
+	orcid = '0000-0002-5532-8201'
+	author2 = 'Ohaeri Uchechukwu'
+	organisation2 = 'University of Jos'
+	country2 = 'Nigeria'
+	orcid2 = '0000-0002-5532-8201'
+
+	keyword = 'Phytomedicinal Plant'
+	keyword2 = 'Open Access'
+	keyword3 = 'Science Gateway'
+
+	params = {
+		'idType' : os.environ['idType'],
+		'author' : author,
+		'organisation' : organisation,
+		'country' : country,
+		'orcid' : orcid,
+		'imageTitle' : plantImage.image_name,
+		'abstract' : plantImage.image_description,
+		'licence' : os.environ['license'],
+		'licenceUrl' : os.environ['licenseURL'],
+		'imageProject' : plantImage.image_caption,
+		'author2' : author2,
+		'organisation2' : organisation2,
+		'country2' : country2,
+		'orcid2' : orcid2,
+		'curator' : 'CURATOR',
+		'doiRef' : '10.15169/sci-gaia:1479297266.09',
+		'refTitle': plantImage.image_caption,
+		'resProject' : plantImage.image_caption,
+		'keyword' : keyword,
+		'keyword2' : keyword2,
+		'keyword3' : keyword3,
+		# 'imageURL' : plantImage.image_file.url,
+		'imageURL' : 'http://grid.ct.infn.it/hackfest/example-image.png',
+		'imagesUploadCategory' : os.environ['imagesUploadCategory'],
+		'language' : 'eng',
+		'researchers' : 'Researchers',
+		'resType' : 'image'
+	}
+
+	return params
+
 def PublishPlantImage(request):
 	plantImages = PlantImage.objects.all()
-	# return HttpResponse(plantImages)
-
 	data = serializers.serialize("json", plantImages, indent=4)
 	context = { 'plantImages': plantImages, 'data': data }
 	fillAuthContext(request, context)
 	if request.POST:
-		for plantImageId in request.POST.items():
-			if plantImageId != 'csrfmiddlewaretoken':
-				# sendImageToOAR(XMLparams)
-				return HttpResponse("send to OAR")
-				# send plant image to OAR
-		return HttpResponse(request.POST)
+		for postVar in request.POST.items():
+			if postVar[0] != 'csrfmiddlewaretoken':
+				plantImg = get_object_or_404(PlantImage, pk = postVar[1])
+				XMLparams = fillImageXMLParams(plantImg)
+				helpers.sendImageToOAR(XMLparams)
+		context['resp'] = 'You have successfully published one or more image(s).'
+		context['status'] = 'success'
+		return render(request, 'library/publishPlantImage.html', context)
 	return render(request, 'library/publishPlantImage.html', context)

@@ -15,7 +15,8 @@
             {% endif %}
 
             <h3>Publish Plant Images</h3>
-            <form method="Post" action="">
+            <form method="Post" action="">                
+                {% csrf_token %}
                 <table class="table table-stripped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -53,7 +54,6 @@
                     </tbody>
                 </table>
                 <br><br>
-                {% csrf_token %}
                 <button class="btn btn-generic" type="submit">Submit</button>
             </form>
             <br><br>

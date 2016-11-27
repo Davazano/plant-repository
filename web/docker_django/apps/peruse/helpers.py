@@ -1,6 +1,10 @@
+from django.http import HttpResponse
 from . import models
 
-def sendImageToOAR(request, XMLparams):
+import datetime
+import time
+
+def sendImageToOAR(XMLparams):
 	XMLPath = '/usr/src/app/static/library/xml/'
 
 	templateFile = XMLPath + 'temp/image-submission-to-OAR.xml'
@@ -15,21 +19,24 @@ def sendImageToOAR(request, XMLparams):
 	}
 
 	# now = datetime.datetime.now().strftime('%H:%M:%S')
-	seconds = datetime.datetime.now().strftime('%S')
-	now = time.mktime(datetime.datetime.now().timetuple())
+	t = datetime.datetime.now()
+	seconds = t.strftime('%S')
+	now = time.mktime(t.timetuple())
 	doi = str(now).replace('.0', '') + '.' + seconds
 
-	date = datetime.datetime.now().strftime('%Y-%M-%d')
+	date = t.strftime('%Y-%M-%d')
 
-	XMLparams['doi'] = doi
+	XMLparams['doiId'] = doi
 	XMLparams['date'] = date
+	XMLparams['year'] = t.strftime('%Y')
 
 
 	# save doi into doi status model
-	oarStatus = OARUploadStatus()
-	oarStatus.doi = doi
-	oarStatus.status = 0
-	oarStatus.save()
+	# oarStatus = OARUploadStatus()
+	# oarStatus.doi = doi
+	# oarStatus.oar_type = 'image'
+	# oarStatus.status = 0
+	# oarStatus.save()
 
 
 	XMLTemplateFile = open(templateFile, 'r')
@@ -43,6 +50,8 @@ def sendImageToOAR(request, XMLparams):
 	file = open(XMLFile, 'w')
 	file.write(newXMLContentStr)
 	file.close()
+
+	return HttpResponse(XMLFile)
 
 	file = open(XMLFile, 'rb')
 

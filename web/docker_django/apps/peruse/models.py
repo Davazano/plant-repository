@@ -42,6 +42,7 @@ class Plant(models.Model):
         return self.plant_botanical_name
 
 class PlantImage(models.Model):
+    # user = models.ForeignKey(User, default=1)
     plant = models.ForeignKey(Plant, on_delete = models.CASCADE)
     image_name = models.CharField(max_length = 250, blank = True)
     image_file = models.FileField()
