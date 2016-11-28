@@ -9,6 +9,20 @@ Featuring:
 
 Blog post -> https://realpython.com/blog/python/django-development-with-docker-compose-and-machine/
 
+### Windows Instructions
+1. Start the docker terminal
+2. Make sure you are signed in on your docker machine
+3. cd into your project
+4. Clone from a repo $ git clone "SSH Keys or HTTP"#
+5. cd ionto the project directory
+6. Pull the project to your docker machine - $ docker-compose pull
+7. Build the project - $ docker-compose build
+8. Run the project - $ docker-compose up -d
+9. Open your KITEMATIC
+10. Click "projectname_nginx_1" under CONTAINERS
+11. Click on the Settings Icon under Web Preview
+12. Click on the Published IP/Port under Configure Ports which will open the project on your default browser
+
 ### OS X Instructions
 
 1. Start new machine - `docker-machine create -d virtualbox dev;`
