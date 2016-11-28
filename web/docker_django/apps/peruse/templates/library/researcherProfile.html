@@ -1,0 +1,51 @@
+{% extends 'library/_base.html' %}
+{% block profile_active %}active{% endblock %}
+
+{% block title %}Profile Details - ACEPRD Plant Repository{% endblock %}
+
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'library/css/dropzone.css' %}"/>
+{% endblock %}
+
+{% block center %}
+<div class="library-container container-fluid">
+
+    <!-- Plants -->
+    <div class="row">
+        <div class="col-sm-12">
+
+            {% if resp %}
+                <p class="label label-{{ status }}"><strong>{{ resp }}</strong></p>
+            {% endif %}
+
+            <h3>Profile Details</h3>
+            <p>Your <span class="label label-success">orcid</span> is required. If you do not have one please visit <a class="link-generic" href="http://orcid.org">orcid</a> to register.</p>
+
+            <form action="{% url 'dashboard.researcherProfile' %}" method="POST">
+                {% for field in form %}
+                <div class="form-group bottom-margin">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <span class="text-danger small">{{ field.errors }}</span>
+                    </div>
+                    <label class="control-label col-sm-2" for="researcherProfile">{{ field.label_tag }}</label>
+                    <div class="col-sm-10">{{ field }}</div>
+                </div>
+                <hr>
+                {% endfor %}
+                
+                
+                {% csrf_token %}
+                <button type="submit" class="btn btn-generic bottom-margin">Save</button>
+            </form>
+            <br><br>
+
+        </div>        
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'library/js/dropzone.js' %}"></script>
+{% endblock %}

@@ -12,5 +12,6 @@ urlpatterns = [
 	url(r'^dashboard/upload-plant-images/', views.uploadPlantImages, name='dashboard.uploadPlantImages'),
 	url(r'^dashboard/publish-plant/', views.PublishPlantInfo, name='dashboard.PublishPlantInfo'),
 	url(r'^dashboard/publish-plant-image/', views.PublishPlantImage, name='dashboard.PublishPlantImage'),
+	url(r'^dashboard/profile-details/', views.researcherProfile, name='dashboard.researcherProfile'),
 	url(r'^test/', views.test, name='peruse.test')
 ]

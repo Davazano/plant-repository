@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from . import models
-
+import os
 import datetime
 import time
 import requests
@@ -24,7 +24,8 @@ def sendImageToOAR(XMLparams):
 	t = datetime.datetime.now()
 	seconds = t.strftime('%S')
 	now = time.mktime(t.timetuple())
-	doiId = str(now).replace('.0', '') + '.' + seconds
+	doiSurfix = str(now).replace('.0', '') + '.' + seconds
+	doiId = os.environ['doiPrefix'] + doiSurfix
 
 	date = t.strftime('%Y-%M-%d')
 
@@ -47,7 +48,7 @@ def sendImageToOAR(XMLparams):
 	XMLTemplateFile.close()
 
 	# write new xml into a new xml file
-	XMLFile = XMLPath + doiId  + '.xml';
+	XMLFile = XMLPath + doiSurfix  + '.xml';
 	file = open(XMLFile, 'w')
 	file.write(newXMLContentStr)
 	file.close()

@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404 # redirect
 from .models import Plant, PlantImage
 from redis import Redis
 from django.http import HttpResponse
-from .forms import UserForm, PlantInfoForm, PlantImagesForm
+from .forms import UserForm, PlantInfoForm, PlantImagesForm, ResearcherProfileForm
 from . import helpers
 
 from django.core import serializers
@@ -131,25 +131,42 @@ def fillAuthContext(request, context):
 
 	return HttpResponse(context)
 
-def register(request):
-    form = UserForm(request.POST or None)
-    if form.is_valid():
-        user = form.save(commit=False)
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
-        user.set_password(password)
-        user.save()
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                # albums = Album.objects.filter(user=request.user)
-                fillAuthContext(request, context)
-                return render(request, 'library/index.html', context)
-    context = {
-        "form": form,
-    }
-    return render(request, 'library/register.html', context)
+# def register(request):
+#     form = UserForm(request.POST or None)
+#     if form.is_valid():
+#         user = form.save(commit=False)
+#         username = form.cleaned_data['username']
+#         password = form.cleaned_data['password']
+#         user.set_password(password)
+#         user.save()
+#         user = authenticate(username=username, password=password)
+#         if user is not None:
+#             if user.is_active:
+#                 login(request, user)
+#                 # albums = Album.objects.filter(user=request.user)
+#                 fillAuthContext(request, context)
+#                 return render(request, 'library/index.html', context)
+# 	context = { 'form': form }
+# 	return render(request, 'library/register.html', context)
+
+def researcherProfile(request):
+	form = ResearcherProfileForm(request.POST or None)
+	context = { 'form': form }
+	if form.is_valid():
+		profile = form.save(commit=False)
+		profile.fullname = form.cleaned_data['fullname']
+		profile.organisation = form.cleaned_data['organisation']
+		profile.country = form.cleaned_data['country']
+		profile.orcid = form.cleaned_data['orcid']
+		profile.user = request.user
+		if profile.save():
+			context['resp'] = 'Update of profile was successful.'
+			context['status'] = 'success'
+		else:
+			context['resp'] = 'Update of profile was unsuccessful.'
+			context['status'] = 'fail'
+	fillAuthContext(request, context)
+	return render(request, 'library/researcherProfile.html', context)
 
 def signin(request):
     if request.method == "POST":
@@ -186,32 +203,33 @@ def uploadPlantInfo(request):
 	fillAuthContext(request, context)
 	if form.is_valid():
 		plantInfo = form.save(commit=False)
-		plantInfo.plant_name = request.POST.get('plant_name')
-		plantInfo.plant_botanical_name = request.POST.get('plant_botanical_name')
-		plantInfo.plant_order = request.POST.get('plant_order')
-		plantInfo.plant_family = request.POST.get('plant_family')
-		plantInfo.plant_genus = request.POST.get('plant_genus')
-		plantInfo.plant_species = request.POST.get('plant_species')
-		plantInfo.plant_binomial_name = request.POST.get('plant_binomial_name')
-		plantInfo.plant_native_name = request.POST.get('plant_native_name')
-		plantInfo.plant_synonyms = request.POST.get('plant_synonyms')
-		plantInfo.plant_habitat = request.POST.get('plant_habitat')
-		plantInfo.plant_etymology = request.POST.get('plant_etymology')
-		plantInfo.plant_description = request.POST.get('plant_description')
-		plantInfo.plant_cultivation = request.POST.get('plant_cultivation')
-		plantInfo.plant_microscopy = request.POST.get('plant_microscopy')
-		plantInfo.plant_used_parts = request.POST.get('plant_used_parts')
-		plantInfo.plant_uses = request.POST.get('plant_uses')
-		plantInfo.plant_constituents = request.POST.get('plant_constituents')
-		plantInfo.plant_references = request.POST.get('plant_references')
+		plantInfo.plant_name = form.cleaned_data['plant_name']
+		plantInfo.plant_botanical_name = form.cleaned_data['plant_botanical_name']
+		plantInfo.plant_order = form.cleaned_data['plant_order']
+		plantInfo.plant_family = form.cleaned_data['plant_family']
+		plantInfo.plant_genus = form.cleaned_data['plant_genus']
+		plantInfo.plant_species = form.cleaned_data['plant_species']
+		plantInfo.plant_binomial_name = form.cleaned_data['plant_binomial_name']
+		plantInfo.plant_native_name = form.cleaned_data['plant_native_name']
+		plantInfo.plant_synonyms = form.cleaned_data['plant_synonyms']
+		plantInfo.plant_habitat = form.cleaned_data['plant_habitat']
+		plantInfo.plant_etymology = form.cleaned_data['plant_etymology']
+		plantInfo.plant_description = form.cleaned_data['plant_description']
+		plantInfo.plant_cultivation = form.cleaned_data['plant_cultivation']
+		plantInfo.plant_microscopy = form.cleaned_data['plant_microscopy']
+		plantInfo.plant_used_parts = form.cleaned_data['plant_used_parts']
+		plantInfo.plant_uses = form.cleaned_data['plant_uses']
+		plantInfo.plant_constituents = form.cleaned_data['plant_constituents']
+		plantInfo.plant_references = form.cleaned_data['plant_references']
 		# plantInfo.plant_author = request.POST.get('plant_author')
 		plantInfo.is_visible = True
 		plantInfo.user = request.user
+		# return HttpResponse(plantInfo)
 		if plantInfo.save():
 			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + ' was successful.'
 			context['status'] = 'success'
 		else:
-			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + ' failed.'
+			context['resp'] = 'Upload of details for ' + str(plantInfo.plant_name) + ' was unsuccessful.'
 			context['status'] = 'fail'
 	return render(request, 'library/uploadPlantInfo.html', context)
 
@@ -260,29 +278,39 @@ def uploadPlantImages(request):
 		for filename, file in request.FILES.items():
 			plantImage = form2.save(commit=False)
 			plantImage.plant =  get_object_or_404(Plant, pk = request.POST.get('plant'))
-			plantImage.image_name =  request.POST.get('image_name')
+			plantImage.image_name =  form.cleaned_data['image_name']
+			# remeber to move image to server
 			plantImage.image_file =  request.FILES[filename]
-			plantImage.image_description =  request.POST.get('image_description')
-			plantImage.image_caption = request.POST.get('image_caption')
+			plantImage.image_description =  form.cleaned_data['image_description']
+			plantImage.image_caption = form.cleaned_data['image_caption']
 
 			if plantImage.save():
 				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' was successful.'
 				context['status'] = 'success'
 			else:
-				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' failed.'
+				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' was unsuccessful.'
 				context['status'] = 'fail'
 	return render(request, 'library/uploadPlantInfo.html', context)
 
 
 def PublishPlantInfo(request):
+	context = { }
+	if request.POST:
+		status = False
+		if request.POST.get('pub_status') == "publish":
+			status = True
+		for postVar in request.POST.items():
+			if postVar[0] != 'csrfmiddlewaretoken' and postVar[0] != 'pub_status':
+				# make plant visible on website
+				plantInfo = get_object_or_404(Plant, pk = postVar[1])
+				plantInfo.is_visible = status
+				plantInfo.save()
+		context['resp'] = 'You have successfully published one or more plant(s).'
+		context['status'] = 'success'
+	# get all plants
 	plants = Plant.objects.all()
-	context = { 'plants': plants }
+	context['plants']= plants
 	fillAuthContext(request, context)
-	# if request.POST:
-	# 	for plantId in request.POST.items():
-	# 		if plantId != 'csrfmiddlewaretoken':
-	# 			# send plant image to OAR
-	# 	return HttpResponse(request.POST)
 	return render(request, 'library/publishPlantInfo.html', context)
 
 def fillImageXMLParams(plantImage):
@@ -322,7 +350,7 @@ def fillImageXMLParams(plantImage):
 		'keyword2' : keyword2,
 		'keyword3' : keyword3,
 		# 'imageURL' : plantImage.image_file.url,
-		'imageURL' : 'https://drive.google.com/file/d/0Bz_VuFzcZVW3cWpzNDVzNnJrdHM/view', # 'http://grid.ct.infn.it/hackfest/example-image.png',
+		'imageURL' : 'http://discourse.sci-gaia.eu/uploads/default/original/1X/55e247a005e46bd65bf31f675557b90fa73dab79.png', # 'http://grid.ct.infn.it/hackfest/example-image.png',
 		'imagesUploadCategory' : os.environ['imagesUploadCategory'],
 		'language' : 'eng',
 		'researchers' : 'Researchers',
@@ -343,8 +371,9 @@ def PublishPlantImage(request):
 				plantImg = get_object_or_404(PlantImage, pk = postVar[1])
 				XMLparams = fillImageXMLParams(plantImg)
 				strV += "<br>" + helpers.sendImageToOAR(XMLparams)
+				# remember to make image visible
 		context['resp'] = 'You have successfully published one or more image(s).'
 		context['status'] = 'success'
-		return HttpResponse(strV)
+		# return HttpResponse(strV)
 		return render(request, 'library/publishPlantImage.html', context)
 	return render(request, 'library/publishPlantImage.html', context)

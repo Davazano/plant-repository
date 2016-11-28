@@ -64,14 +64,14 @@ class OARUploadStatus(models.Model):
     def __str__(self):
         return self.doi
 
-# class ResearcherProfile(models.Model):
-#     user = models.ForeignKey(User)
-#     fullname = models.CharField(max_length = 250)
-#     organisation = models.CharField(max_length = 250)
-#     country = models.CharField(max_length = 250)
-#     orcid = models.CharField(max_length = 30)
-#     created_at = models.DateTimeField(auto_now_add = True)
-#     updated_at = models.DateTimeField(auto_now = True)
+class ResearcherProfile(models.Model):
+    user = models.ForeignKey(User)
+    fullname = models.CharField(max_length = 250)
+    organisation = models.CharField(max_length = 250)
+    country = models.CharField(max_length = 250)
+    orcid = models.CharField(max_length = 30)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
 
-#     def __str__(self):
-#         return self.fullname
+    def __str__(self):
+        return self.fullname

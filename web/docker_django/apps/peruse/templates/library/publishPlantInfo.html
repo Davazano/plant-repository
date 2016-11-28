@@ -51,8 +51,19 @@
                     </tbody>
                 </table>
                 <br><br>
+
+                <div class="form-group bottom-margin">
+                    <label class="control-label col-sm-4" for="pub_status">Publish Status</label>
+                    <div class="col-sm-8">
+                        <select name="pub_status">
+                            <option value="publish">Publish</option>
+                            <option value="unpublish">Unpublish</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
                 {% csrf_token %}
-                <button class="btn btn-generic" type="submit">Submit</button>
+                <button class="btn btn-generic pull-right" type="submit">Submit</button>
             </form>
             <br><br>
             
