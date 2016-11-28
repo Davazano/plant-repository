@@ -322,7 +322,7 @@ def fillImageXMLParams(plantImage):
 		'keyword2' : keyword2,
 		'keyword3' : keyword3,
 		# 'imageURL' : plantImage.image_file.url,
-		'imageURL' : 'http://grid.ct.infn.it/hackfest/example-image.png',
+		'imageURL' : 'https://drive.google.com/file/d/0Bz_VuFzcZVW3cWpzNDVzNnJrdHM/view', # 'http://grid.ct.infn.it/hackfest/example-image.png',
 		'imagesUploadCategory' : os.environ['imagesUploadCategory'],
 		'language' : 'eng',
 		'researchers' : 'Researchers',
@@ -337,12 +337,14 @@ def PublishPlantImage(request):
 	context = { 'plantImages': plantImages, 'data': data }
 	fillAuthContext(request, context)
 	if request.POST:
+		strV = ""
 		for postVar in request.POST.items():
 			if postVar[0] != 'csrfmiddlewaretoken':
 				plantImg = get_object_or_404(PlantImage, pk = postVar[1])
 				XMLparams = fillImageXMLParams(plantImg)
-				helpers.sendImageToOAR(XMLparams)
+				strV += "<br>" + helpers.sendImageToOAR(XMLparams)
 		context['resp'] = 'You have successfully published one or more image(s).'
 		context['status'] = 'success'
+		return HttpResponse(strV)
 		return render(request, 'library/publishPlantImage.html', context)
 	return render(request, 'library/publishPlantImage.html', context)
