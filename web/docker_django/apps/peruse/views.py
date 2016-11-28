@@ -29,8 +29,7 @@ def index(request):
 def plant_detail(request, plant_id):
 	plant = get_object_or_404(Plant, pk = plant_id)
 	plant_images = PlantImage.objects.filter(plant = plant)
-	counter = redis.incr('counter')
-	context = {'plant': plant, 'plant_images': plant_images, 'counter': counter}
+	context = { 'plant': plant, 'plant_images': plant_images }
 	fillAuthContext(request, context)
 	return render(request, 'library/detail.html', context)
 
@@ -52,7 +51,8 @@ def test(request):
 	# now = datetime.datetime.now().strftime('%H:%M:%S')
 	seconds = datetime.datetime.now().strftime('%S')
 	now = time.mktime(datetime.datetime.now().timetuple())
-	doi = str(now).replace('.0', '') + '.' + seconds
+	doiSurfix = str(now).replace('.0', '') + '.' + seconds
+	doi = os.environ['doiPrefix'] + doiSurfix
 
 	date = datetime.datetime.now().strftime('%Y-%M-%d')
 	author1 = 'Oguche David'
@@ -103,7 +103,7 @@ def test(request):
 	newXMLContentStr = templateStr.format(**context)
 	XMLTemplateFile.close()
 
-	XMLFile = XMLPath + doi  + '.xml';
+	XMLFile = XMLPath + doiSurfix  + '.xml';
 
 	file = open(XMLFile, 'w')
 	file.write(newXMLContentStr)
