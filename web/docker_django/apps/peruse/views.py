@@ -47,6 +47,14 @@ def search(request):
 	fillAuthContext(request, context)
 	return render(request, 'library/searchResult.html', context)
 
+def searchByFirstLetter(request, q):
+	context = {}
+	plants = Plant.objects.filter( Q(plant_name__istartswith = q) | Q(plant_botanical_name__istartswith = q) ).distinct()
+	context['plants'] = plants
+	context['searchParam'] = q
+	fillAuthContext(request, context)
+	return render(request, 'library/searchResult.html', context)
+
 def test(request):
 	XMLPath = '/usr/src/app/static/library/xml/'
 

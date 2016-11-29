@@ -16,6 +16,6 @@ urlpatterns = [
 	url(r'^dashboard/publish-plant-dataset/', views.PublishPlantDataset, name='dashboard.PublishPlantDataset'),
 	url(r'^dashboard/profile-details/', views.researcherProfile, name='dashboard.researcherProfile'),
 	url(r'^search/', views.search, name='peruse.search'),
-	# url(r'^search/(?P<query>[a-zA-Z0-9_]+)/', views.search, name='peruse.search'),
+	url(r'^query/(?P<q>[a-zA-Z0-9_]+)/', views.searchByFirstLetter, name='peruse.searchByFirstLetter'),
 	url(r'^test/', views.test, name='peruse.test')
 ]
