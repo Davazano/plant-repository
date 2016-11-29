@@ -15,6 +15,7 @@ urlpatterns = [
 	url(r'^dashboard/publish-plant-image/', views.PublishPlantImage, name='dashboard.PublishPlantImage'),
 	url(r'^dashboard/publish-plant-dataset/', views.PublishPlantDataset, name='dashboard.PublishPlantDataset'),
 	url(r'^dashboard/profile-details/', views.researcherProfile, name='dashboard.researcherProfile'),
-	# url(r'^q/(?P<plant_id>[0-9]+)/', views.search, name='dashboard.search'),
+	url(r'^search/', views.search, name='peruse.search'),
+	# url(r'^search/(?P<query>[a-zA-Z0-9_]+)/', views.search, name='peruse.search'),
 	url(r'^test/', views.test, name='peruse.test')
 ]

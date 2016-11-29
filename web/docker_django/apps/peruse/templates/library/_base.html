@@ -75,16 +75,17 @@
         <div class="row">
             <div class="col-xs-12 col-md-2 content-offset-1 side">
                 <h4>Search</h4>
-                <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'peruse.index' %}">
+                <form class="navbar-form navbar-left" role="search" method="POST" action="{% url 'peruse.search' %}">
                     <div class="input-group bottom-margin">
-                        <select class="form-control" name="">
-                            <option value="">Common Name</option>
-                            <option value="">Botanical Name</option>
+                        <select class="form-control" name="searchField">
+                            <option value="cName">Common Name</option>
+                            <option value="botName">Botanical Name</option>
                         </select>
                     </div>
                     <div class="input-group bottom-margin">
-                        <input type="text" class="form-control" placeholder="Plant Name" name="q" value="{{ request.GET.q }}">
+                        <input type="text" class="form-control" placeholder="Plant Name" name="q" value="{{ request.POST.q }}">
                     </div>
+                    {% csrf_token %}
                     <button type="submit" class="btn btn-generic bottom-margin">Search</button>
                 </form>
                 <table height="107" border="0" align="center" cellpadding="5" class="alphtable">
