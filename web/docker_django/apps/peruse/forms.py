@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Plant, PlantImage, OARUploadStatus, ResearcherProfile
+from .models import Plant, PlantImage, PlantDataset, OARUploadStatus, ResearcherProfile
 
 
 class PlantInfoForm(forms.ModelForm):
@@ -18,12 +18,20 @@ class PlantImagesForm(forms.ModelForm):
         fields = ['plant', 'image_name', 'image_file', 'image_description', 'image_caption']
 
 
+class PlantDatasetsForm(forms.ModelForm):
+
+    class Meta:
+        model = PlantDataset
+        fields = ['plant', 'dataset_name', 'dataset_file', 'dataset_description']
+
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+
 
 class ResearcherProfileForm(forms.ModelForm):
 

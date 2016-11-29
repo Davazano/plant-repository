@@ -1,11 +1,20 @@
-<p>Upload Datasets</p>
+<h3>Upload Dataset(s)</h3>
+<p>(Datasets must be in the csv format)</p>
+<p>You can upload as many datasets as you would like for any <span class="label label-success">phytomedicine</span> plant you have researched.</p>
 
-<form action="" class="dropzone dz-clickable" method="POST" enctype="multipart/form-data">
-    
-    <div class="dz-default dz-message">
-        <span>Drop CSV files here to upload</span>
+<form action="{% url 'dashboard.uploadPlantDatasets' %}" method="POST" enctype="multipart/form-data">
+	{% for field in form3 %}
+    <div class="form-group bottom-margin">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small">{{ field.errors }}</span>
+        </div>
+        <label class="control-label col-sm-4" for="uploadPlantDatasets">{{ field.label_tag }}</label>
+        <div class="col-sm-8">{{ field }}</div>
     </div>
+	{% endfor %}
+
+	<!-- <input multiple="multiple" type="file" name="images" class="dz-hidden-input"> -->
     {% csrf_token %}
-    <button type="submit" class="btn btn-generic bottom-margin">Upload</button>
+    <button type="submit" class="btn btn-generic bottom-margin pull-right">Upload</button>
 </form>
 <br><br>

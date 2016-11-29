@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404 # redirect
 from .models import Plant, PlantImage
 from redis import Redis
 from django.http import HttpResponse
-from .forms import UserForm, PlantInfoForm, PlantImagesForm, ResearcherProfileForm
+from .forms import UserForm, PlantInfoForm, PlantImagesForm, PlantDatasetsForm, ResearcherProfileForm
 from . import helpers
 
 from django.core import serializers
@@ -197,9 +197,10 @@ def logout_user(request):
 
 def uploadPlantInfo(request):
 	form = PlantInfoForm(request.POST or None)
-	form2 = PlantImagesForm(request.POST or None, request.FILES or None)
+	form2 = PlantImagesForm(request.POST or None, request.FILES or None)	
+	form3 = PlantDatasetsForm(request.POST or None, request.FILES or None)
 	plants = Plant.objects.filter(is_visible = True)
-	context = { 'form': form, 'form2': form2, 'plants': plants }
+	context = { 'form': form, 'form2': form2, 'form3': form3, 'plants': plants }
 	fillAuthContext(request, context)
 	if form.is_valid():
 		plantInfo = form.save(commit=False)
@@ -270,25 +271,48 @@ def uploadPlantInfo(request):
 
 def uploadPlantImages(request):
 	form = PlantInfoForm(request.POST or None)
-	form2 = PlantImagesForm(request.POST or None, request.FILES or None)
-	counter = redis.incr('counter')
-	context = {'form': form, 'form2': form2, 'counter': counter}
+	form2 = PlantImagesForm(request.POST or None, request.FILES or None)	
+	form3 = PlantDatasetsForm(request.POST or None, request.FILES or None)
+	context = {'form': form, 'form2': form2, 'form3': form3}
 	fillAuthContext(request, context)
 	if form2.is_valid():
-		for filename, file in request.FILES.items():
+		for filename in request.FILES.items():
 			plantImage = form2.save(commit=False)
 			plantImage.plant =  get_object_or_404(Plant, pk = request.POST.get('plant'))
-			plantImage.image_name =  form.cleaned_data['image_name']
+			plantImage.image_name =  form2.cleaned_data['image_name']
 			# remeber to move image to server
 			plantImage.image_file =  request.FILES[filename]
-			plantImage.image_description =  form.cleaned_data['image_description']
-			plantImage.image_caption = form.cleaned_data['image_caption']
+			plantImage.image_description =  form2.cleaned_data['image_description']
+			plantImage.image_caption = form2.cleaned_data['image_caption']
 
 			if plantImage.save():
 				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' was successful.'
 				context['status'] = 'success'
 			else:
 				context['resp'] = 'Upload of image for ' + str(plantImage.image_name) + ' was unsuccessful.'
+				context['status'] = 'fail'
+	return render(request, 'library/uploadPlantInfo.html', context)
+
+def uploadPlantDatasets(request):
+	form = PlantInfoForm(request.POST or None)
+	form2 = PlantImagesForm(request.POST or None, request.FILES or None)	
+	form3 = PlantDatasetsForm(request.POST or None, request.FILES or None)
+	context = {'form': form, 'form2': form2, 'form3': form3}
+	fillAuthContext(request, context)
+	if form3.is_valid():
+		for filename in request.FILES.items():
+			plantDataset = form3.save(commit=False)
+			plantDataset.plant =  get_object_or_404(Plant, pk = request.POST.get('plant'))
+			plantDataset.dataset_name =  form3.cleaned_data['dataset_name']
+			# remeber to move dataset to server
+			plantDataset.dataset_file =  request.FILES[filename[0]]
+			plantDataset.dataset_description =  form3.cleaned_data['dataset_description']
+
+			if plantDataset.save():
+				context['resp'] = 'Upload of dataset for ' + str(plantDataset.dataset_name) + ' was successful.'
+				context['status'] = 'success'
+			else:
+				context['resp'] = 'Upload of dataset for ' + str(plantDataset.dataset_name) + ' was unsuccessful.'
 				context['status'] = 'fail'
 	return render(request, 'library/uploadPlantInfo.html', context)
 
