@@ -48,6 +48,21 @@ class PlantImage(models.Model):
     image_file = models.FileField()
     image_description = models.TextField(blank = True)
     image_caption = models.CharField(max_length = 250, blank = True)
+    # created_at = models.DateTimeField(auto_now_add = True)
+    # updated_at = models.DateTimeField(auto_now = True)
+    is_visible = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.image_name
+
+class PlantDataset(models.Model):
+    user = models.ForeignKey(User, default=1)
+    plant = models.ForeignKey(Plant, on_delete = models.CASCADE)
+    dataset_name = models.CharField(max_length = 250, blank = True)
+    dataset_file = models.FileField()
+    dataset_description = models.TextField(blank = True)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
     is_visible = models.BooleanField(default = False)
 
     def __str__(self):

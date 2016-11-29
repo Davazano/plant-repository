@@ -27,6 +27,9 @@ ul.errorlist > li {
   border-color: #21b384;
   /* #069; */
 }
+ul.dropdown-menu {
+  background-color: #21b384;
+}
 .icon-bar {
   background: #fff;
 }
@@ -52,7 +55,7 @@ ul.errorlist > li {
   color: #fff;
   background: #21b384;
   font-weight: bold;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid #21b384;
 }
 .navbar-generic ul.dropdown-menu li a:hover {
   background: #fff;
