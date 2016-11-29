@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404 # redirect
-from .models import Plant, PlantImage
+from .models import Plant, PlantImage, PlantDataset
 from redis import Redis
 from django.http import HttpResponse
 from .forms import UserForm, PlantInfoForm, PlantImagesForm, PlantDatasetsForm, ResearcherProfileForm
@@ -281,7 +281,7 @@ def uploadPlantImages(request):
 			plantImage.plant =  get_object_or_404(Plant, pk = request.POST.get('plant'))
 			plantImage.image_name =  form2.cleaned_data['image_name']
 			# remeber to move image to server
-			plantImage.image_file =  request.FILES[filename]
+			plantImage.image_file =  request.FILES[filename[0]]
 			plantImage.image_description =  form2.cleaned_data['image_description']
 			plantImage.image_caption = form2.cleaned_data['image_caption']
 
@@ -383,6 +383,52 @@ def fillImageXMLParams(plantImage):
 
 	return params
 
+def fillDatasetXMLParams(plantDataset):
+	author = 'David Oguche'
+	organisation = 'University of Jos'
+	country = 'Nigeria'
+	orcid = '0000-0002-5532-8201'
+	author2 = 'Ohaeri Uchechukwu'
+	organisation2 = 'University of Jos'
+	country2 = 'Nigeria'
+	orcid2 = '0000-0002-5532-8201'
+
+	keyword = 'Phytomedicinal Plant'
+	keyword2 = 'Open Access'
+	keyword3 = 'Plant Repository'
+
+	params = {
+		'idType' : os.environ['idType'],
+		'author' : author,
+		'organisation' : organisation,
+		'country' : country,
+		'orcid' : orcid,
+		'datasetTitle' : plantDataset.dataset_name,
+		'abstract' : plantDataset.dataset_description,
+		'licence' : os.environ['license'],
+		'licenceUrl' : os.environ['licenseURL'],
+		'datasetProject' : plantDataset.dataset_name,
+		'author2' : author2,
+		'organisation2' : organisation2,
+		'country2' : country2,
+		'orcid2' : orcid2,
+		'curator' : 'CURATOR',
+		'doiRef' : '10.15169/sci-gaia:1479297266.09',
+		'refTitle': plantDataset.dataset_name,
+		'resProject' : plantDataset.dataset_name,
+		'keyword' : keyword,
+		'keyword2' : keyword2,
+		'keyword3' : keyword3,
+		# 'datasetLink' : plantDataset.image_file.url,
+		'datasetLink' : 'http://grid.ct.infn.it/hackfest/example-dataset.csv',
+		'UploadCategory' : os.environ['datasetsUploadCategory'],
+		'language' : 'eng',
+		'researchers' : 'Researchers',
+		'resType' : 'dataset'
+	}
+
+	return params
+
 def PublishPlantImage(request):
 	plantImages = PlantImage.objects.all()
 	data = serializers.serialize("json", plantImages, indent=4)
@@ -391,7 +437,7 @@ def PublishPlantImage(request):
 	if request.POST:
 		strV = ""
 		for postVar in request.POST.items():
-			if postVar[0] != 'csrfmiddlewaretoken':
+			if postVar[0] != 'csrfmiddlewaretoken' and postVar[0] != 'pub_status':
 				plantImg = get_object_or_404(PlantImage, pk = postVar[1])
 				XMLparams = fillImageXMLParams(plantImg)
 				strV += "<br>" + helpers.sendImageToOAR(XMLparams)
@@ -401,3 +447,23 @@ def PublishPlantImage(request):
 		# return HttpResponse(strV)
 		return render(request, 'library/publishPlantImage.html', context)
 	return render(request, 'library/publishPlantImage.html', context)
+
+def PublishPlantDataset(request):
+	plantDatasets = PlantDataset.objects.all()
+	data = serializers.serialize("json", plantDatasets, indent=4)
+	context = { 'plantDatasets': plantDatasets, 'data': data }
+	fillAuthContext(request, context)
+	if request.POST:
+		strV = ""
+		# return HttpResponse(request.POST)
+		for postVar in request.POST.items():
+			if postVar[0] != 'csrfmiddlewaretoken' and postVar[0] != 'pub_status':
+				plantData = get_object_or_404(PlantDataset, pk = postVar[1])
+				XMLparams = fillDatasetXMLParams(plantData)
+				strV += "<br>" + helpers.sendDatasetToOAR(XMLparams)
+				# remember to make image visible
+		context['resp'] = 'You have successfully published one or more dataset(s).'
+		context['status'] = 'success'
+		return HttpResponse(strV)
+		return render(request, 'library/publishPlantDataset.html', context)
+	return render(request, 'library/publishPlantDataset.html', context)

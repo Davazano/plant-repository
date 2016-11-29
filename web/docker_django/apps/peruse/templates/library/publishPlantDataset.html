@@ -1,6 +1,6 @@
 {% extends 'library/_base.html' %}
 
-{% block title %}Publish Plant Images- ACEPRD Plant Repository{% endblock %}
+{% block title %}Publish Plant Datasets- ACEPRD Plant Repository{% endblock %}
 
 {% block center %}
 <div class="library-container container-fluid">
@@ -13,7 +13,7 @@
                 <p><strong>{{ resp }}</strong></p>
             {% endif %}
 
-            <h3>Publish Plant Images</h3>
+            <h3>Publish Plant Datasets</h3>
             <form method="Post" action="">                
                 {% csrf_token %}
                 <table class="table table-stripped table-bordered table-hover">
@@ -22,37 +22,35 @@
                             <td></td>
                             <td>Common Name</td>
                             <td>Botanical Name</td>
-                            <td>Image</td>
-                            <td>Caption</td>
+                            <td>Dataset</td>
                             <td>Status</td>
                             <td>View Details</td>
                         </tr>
                     </thead>
                     <tbody>
-                        {% if plantImages %}
-                            {% for plantImage in plantImages %}
+                        {% if plantDatasets %}
+                            {% for PlantDataset in plantDatasets %}
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="plant_{{ plantImage.id }}" value="{{ plantImage.id }}">
+                                        <input type="checkbox" name="plant_{{ PlantDataset.id }}" value="{{ PlantDataset.id }}">
                                     </td>
-                                    <td>{{ plantImage.plant }}</td>
-                                    <td>{{ plantImage.image_name }}</td>
-                                    <td><img src="{{ plantImage.image_file.url }}" class="img-responsive"></td>
-                                    <td>{{ plantImage.image_caption }}</td>
+                                    <td>{{ PlantDataset.plant }}</td>
+                                    <td>{{ PlantDataset.dataset_name }}</td>
+                                    <td><a href="{{ PlantDataset.dataset_file.url }}" class="link-generic" target="_blank">view</a></td>
                                     <td>
-                                    {% if plantImage.is_visible %} 
+                                    {% if PlantDataset.is_visible %} 
                                         <span class="label label-info">Published</span> 
                                     {% else %} 
                                         <span class="label label-warning">Unpublished</span>
                                     {% endif %}
                                     </td>
-                                    <td><a class="btn btn-info" href="{% url 'peruse.plant_detail' plantImage.plant.id %}">View Plant</a></td>
+                                    <td><a class="btn btn-info" href="{% url 'peruse.plant_detail' PlantDataset.plant.id %}">View Plant</a></td>
                                 </tr>
                             {% endfor %}
                         {% endif %}
                     </tbody>
                 </table>
-                <br><br> 
+                
                 <div class="form-group bottom-margin">
                     <label class="control-label col-sm-4" for="pub_status">Publish Status</label>
                     <div class="col-sm-8">
@@ -63,7 +61,7 @@
                     </div>
                 </div>
                 <br>
-                {% csrf_token %}
+                
                 <button class="btn btn-generic pull-right" type="submit">Submit</button>
             </form>
             <br><br>
