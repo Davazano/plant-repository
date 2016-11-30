@@ -1,0 +1,31 @@
+{% extends 'library/_base.html' %}
+  {% block title %}FAQs - ACEPRD Plant Repository{% endblock %}
+
+    {% block center %}
+      <div class="panel-group" id="accordion">
+        <h3>Frequently Asked Questions</h3>
+        <br><br>
+          {% if faq %}
+            {% for faqs in faq %}
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        {{ faqs.question }}
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      {{ faqs.answer }} 
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+              {% else %}
+                <div class="col-sm-12">
+                 <p>No faqs has been uploaded.</p>
+                </div>
+          {% endif %}    
+      </div>
+    {% endblock %}

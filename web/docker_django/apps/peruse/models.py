@@ -90,3 +90,13 @@ class ResearcherProfile(models.Model):
 
     def __str__(self):
         return self.fullname
+
+class Faqs(models.Model):
+    question = models.CharField(max_length = 100)
+    answer = models.CharField(max_length = 500)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    is_visible = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.question

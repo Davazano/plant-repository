@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404 # redirect
-from .models import Plant, PlantImage, PlantDataset
+from .models import Plant, PlantImage, PlantDataset, Faqs
 from redis import Redis
 from django.http import HttpResponse
 from .forms import UserForm, PlantInfoForm, PlantImagesForm, PlantDatasetsForm, ResearcherProfileForm
@@ -467,3 +467,9 @@ def PublishPlantDataset(request):
 		return HttpResponse(strV)
 		return render(request, 'library/publishPlantDataset.html', context)
 	return render(request, 'library/publishPlantDataset.html', context)
+
+def ask(request):
+	faq = Faqs.objects.filter(is_visible = True)
+	context = {'faq' : faq}
+	fillAuthContext(request, context)
+	return render(request, 'library/faqs.html', context)
