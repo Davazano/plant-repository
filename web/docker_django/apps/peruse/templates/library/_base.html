@@ -75,53 +75,55 @@
         <div class="row">
             <div class="col-xs-12 col-md-2 content-offset-1 side">
                 <h4>Search</h4>
-                <form class="navbar-form navbar-left" role="search" method="get" action="{% url 'peruse.index' %}">
+                <form class="navbar-form navbar-left" role="search" method="POST" action="{% url 'peruse.search' %}">
                     <div class="input-group bottom-margin">
-                        <select class="form-control" name="">
-                            <option value="">Common Name</option>
-                            <option value="">Botanical Name</option>
+                        <select class="form-control" name="searchField">
+                            <option value="cName">Common Name</option>
+                            <option value="botName">Botanical Name</option>
                         </select>
                     </div>
                     <div class="input-group bottom-margin">
-                        <input type="text" class="form-control" placeholder="Plant Name" name="q" value="{{ request.GET.q }}">
+                        <input type="text" class="form-control" placeholder="Plant Name" name="q" value="{{ request.POST.q }}">
                     </div>
+                    {% csrf_token %}
                     <button type="submit" class="btn btn-generic bottom-margin">Search</button>
                 </form>
                 <table height="107" border="0" align="center" cellpadding="5" class="alphtable">
                     <tr>
                         <td height="101" class="alphtable" id="alphtable" align="center">
                             <p><strong>
-                                <a href="" class="link-generic">A</a>
-                                <a href="" class="link-generic">B</a>
-                                <a href="" class="link-generic">C</a>
-                                <a href="" class="link-generic">D</a>
-                                <a href="" class="link-generic">E</a>
-                                <a href="" class="link-generic">F</a>
-                                <a href="" class="link-generic">G</a>
-                                <a href="" class="link-generic">H</a>
-                                <a href="" class="link-generic">I</a>
-                                <a href="" class="link-generic">J</a>
-                                <a href="" class="link-generic">K</a>
-                                <a href="" class="link-generic">L</a>
-                                <a href="" class="link-generic">M</a>
-                                <a href="" class="link-generic">N</a>
-                                <a href="" class="link-generic">O</a>
-                                <a href="" class="link-generic">P</a>
-                                <a href="" class="link-generic">Q</a>
-                                <a href="" class="link-generic">R</a>
-                                <a href="" class="link-generic">S</a>
-                                <a href="" class="link-generic">T</a>
-                                <a href="" class="link-generic">U</a>
-                                <a href="" class="link-generic">V</a>
-                                <a href="" class="link-generic">W</a>
-                                <a href="" class="link-generic">X</a>
-                                <a href="" class="link-generic">Y</a>
-                                <a href="" class="link-generic">Z</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'a' %}" class="link-generic">A</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'b' %}" class="link-generic">B</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'c' %}" class="link-generic">C</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'd' %}" class="link-generic">D</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'e' %}" class="link-generic">E</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'f' %}" class="link-generic">F</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'g' %}" class="link-generic">G</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'h' %}" class="link-generic">H</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'i' %}" class="link-generic">I</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'j' %}" class="link-generic">J</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'k' %}" class="link-generic">K</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'l' %}" class="link-generic">L</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'm' %}" class="link-generic">M</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'n' %}" class="link-generic">N</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'o' %}" class="link-generic">O</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'p' %}" class="link-generic">P</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'q' %}" class="link-generic">Q</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'r' %}" class="link-generic">R</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 's' %}" class="link-generic">S</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 't' %}" class="link-generic">T</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'u' %}" class="link-generic">U</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'v' %}" class="link-generic">V</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'w' %}" class="link-generic">W</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'x' %}" class="link-generic">X</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'y' %}" class="link-generic">Y</a>
+                                <a href="{% url 'peruse.searchByFirstLetter' 'z' %}" class="link-generic">Z</a>
                             </strong></p>
                         </td>
                     </tr>
                 </table>
             </div>
+
             <div class="col-xs-12 col-md-7 page-content content-offset-1-05">
                 {% block center %}
 

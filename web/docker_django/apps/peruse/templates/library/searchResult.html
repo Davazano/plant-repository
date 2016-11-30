@@ -1,0 +1,46 @@
+{% extends 'library/_base.html' %}
+
+{% block title %}Search Results for {{ searchParam }} - ACEPRD Plant Repository{% endblock %}
+{% load staticfiles %}
+
+{% block center %}
+<div class="library-container container-fluid">
+
+    <!-- Plants -->
+    <div class="row">
+        <div class="col-sm-12">
+
+            {% if resp %}
+                <p><strong>{{ resp }}</strong></p>
+            {% endif %}
+
+            <h3>Search Results for {{ searchParam }}</h3>
+            <hr>
+
+            {% if plants %}
+                {% for plant in plants %}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">                            
+                            <h4>{{ plant.plant_name }}</h4>
+                            {% if plants.plant_picture %}
+                                <img src="{{ plant.plant_picture.url }}" class="img-responsive">
+                            {% else %}
+                                <img src="{% static 'library/images/default.png' %}" class="img-responsive">
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-12 col-md-8">
+                            <p>{{ plant.plant_description }}</p>
+                            <a href="{% url 'peruse.plant_detail' plant.id %}" class='link-generic'>View more</a>
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <p>No records were found matching your search criteria <span class="label label-success">{{ searchParam }}</span></p>
+            {% endif %}
+            <br><br><br>
+        </div>        
+    </div>
+
+</div>
+{% endblock %}

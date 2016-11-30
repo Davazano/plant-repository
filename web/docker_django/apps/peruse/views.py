@@ -1,16 +1,19 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404 # redirect
+<<<<<<< HEAD
 from .models import Plant, PlantImage, PlantDataset, Faqs
+=======
+from django.core import serializers
+from django.db.models import Q
+from .models import Plant, PlantImage, PlantDataset
+>>>>>>> refs/remotes/origin/master
 from redis import Redis
 from django.http import HttpResponse
 from .forms import UserForm, PlantInfoForm, PlantImagesForm, PlantDatasetsForm, ResearcherProfileForm
 from . import helpers
 
-from django.core import serializers
-
 import os
-
 import requests
 import datetime
 import time
@@ -19,6 +22,7 @@ IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
 
 redis = Redis(host='redis', port=6379)
 
+# ----Guest Views----
 def index(request):
 	plants = Plant.objects.filter(is_visible = True)
 	counter = redis.incr('counter')
@@ -32,6 +36,28 @@ def plant_detail(request, plant_id):
 	context = { 'plant': plant, 'plant_images': plant_images }
 	fillAuthContext(request, context)
 	return render(request, 'library/detail.html', context)
+
+def search(request):
+	context = {}
+	if request.POST:
+		searchField = request.POST.get('searchField')
+		searchParam = request.POST.get('q')
+		if searchField == "cName":
+			plants = Plant.objects.filter( Q(plant_name__icontains = searchParam) ).distinct()
+		elif searchField == "botName":
+			plants = Plant.objects.filter( Q(plant_botanical_name__icontains = searchParam) ).distinct()
+		context['plants'] = plants
+		context['searchParam'] = searchParam
+	fillAuthContext(request, context)
+	return render(request, 'library/searchResult.html', context)
+
+def searchByFirstLetter(request, q):
+	context = {}
+	plants = Plant.objects.filter( Q(plant_name__istartswith = q) | Q(plant_botanical_name__istartswith = q) ).distinct()
+	context['plants'] = plants
+	context['searchParam'] = q
+	fillAuthContext(request, context)
+	return render(request, 'library/searchResult.html', context)
 
 def test(request):
 	XMLPath = '/usr/src/app/static/library/xml/'
@@ -121,8 +147,14 @@ def test(request):
 
 	return  response
 
-# def signin(request):
-# 	return render(request, 'library/login.html')
+#----------------------------
+# ----Authenticated Views----
+
+# def checkAuth(request):
+# 	if request.user.is_authenticated():
+# 		return True
+# 	else:
+# 		return render(request, 'library/login.html')
 
 def fillAuthContext(request, context):
 	context['authenticated'] = request.user.is_authenticated()
