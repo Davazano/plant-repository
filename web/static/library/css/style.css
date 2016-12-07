@@ -258,4 +258,41 @@ a.link-generic {
 
 textarea.generic-form-control {
   height: auto;
+
+}
+p {
+  margin-top: 0;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.contactus {
+  width: 100%;
+  background: #FFF;
+  margin: 0 auto;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+}
+.eadd {
+  float: left;
+  height: auto;
+  width: auto;
+  padding-top: 10px;
+  padding-right: 0;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  margin-bottom: 20px;
+}
+.phyadd {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  float: left;
+  height: auto;
+  width: 100%;
+  color: #000;
+  background-color: #FFF;
+  margin: auto;
+  padding-bottom: 100px;
+  padding-top: 30px;
+  padding-left: 30px;
 }

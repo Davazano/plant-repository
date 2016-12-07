@@ -2,72 +2,70 @@
   {% block title %}Contact Us - ACEPRD Plant Repository{% endblock %}
 
     {% block center %}
-      <div class="panel-group" id="accordion">
-        <h3>Contact Us</h3>
-        <br><br>
-       {% if cont %}
-        {% for contact in cont %}
-        	<p style="padding-left:-30px; font-size:12px; font-weight:normal; color:#000033; line-height:20px; margin:0px 0px 0px 13px;" align="left">
-				<font style="font-size:15px; font-weight:bolder; font-family:verdana; color:#666666;">CONTACT US</font>
-				<br><br>If this website does not answer all your questions concerning the University of Jos, please contact us at any of the addresses:
-				<br><br>
-				<strong><font color="#666666">Email address and Phone number:</font></strong><br> 
-			</p>  
-			<div style="margin:0px 0px 0px 30px; float:left; width:150%;">	
-				<table width="100%" align="left">
 
-					<tbody><tr>
-						<th style="text-align:left;">&nbsp; Details</th>
-						<th style="text-align:left;">&nbsp; Email address &nbsp;&nbsp;</th>
-						</tr>
-		
-						<tr id="">
-							<td width="20%"></td>
-						</tr>
-		
-						<tr id="">
-							<td width="24%" valign="top" align="left">Centre e-mail</td>
-							<td width="26%" valign="top">&nbsp;
-							<a href="#" style="color:#0033FF; text-decoration:none;">
-							<font id="changeme" color="#993300"> {{ contact.email_address }}</font></a> &nbsp;&nbsp;</td>
-						</tr>
-	    
-	    				<tr id="">
-							<td width="24%" valign="top" align="left">Phone Number:</td>
-							<td width="26%" valign="top">&nbsp;
-							<a href="#" style="color:#0033FF; text-decoration:none;">
-							<font id="changeme" color="#993300"> {{ contact.phone_number }} </font></a> &nbsp;&nbsp;</td>
-						</tr>
-						
-						<tr>
-							<td><div style="border-bottom:1px solid #CCCCCC;"></div></td>
-							<td><div style="border-bottom:1px solid #CCCCCC;"></div></td>
-						</tr>
 
-					</tbody>
-				</table>
-			</div>
+			<div class="contactus">
+				<div class="eadd">
+				    <strong><h2>Contact Us</h2></strong><br>
+				    <p>If this website does not answer all your questions concerning the University of Jos,<br>
+				    please contact us at any of the addresses:</p><br><br><br>
 
-			<br><br>
-			<p style="font-size:11px; margin:0px 0px 0px -12px;">
-	        <font style="font-size:15px; font-weight:bolder; font-family:verdana; color:#666666;">Physical Address:</font><br>
-			African Centre of Excellence in Phytomedicine Research and Drug Development,<br>
-			Deans Office,<br>
-			Faculty of Pharmaceutical sciences,<br>
-			University of Jos<br>
-	        P.M.B 2084 Jos, <br>
-	        Plateau State, Nigeria.<br>
-			Post code: 930001
-			</p>
-			
-			<div style="padding-bottom:260px;"></div>
-			<br><br>
-        	</div>
-		{% endfor %}
-		{% else %}
-                <div class="col-sm-12">
-                 <p>No contact has been uploaded.</p>
-                </div>
-       {% endif %}
-      </div>
-    {% endblock %}
+				    <strong><h4>Email Address and Phone Number:</h4></strong>
+				 	
+				 	{% if cont %}
+        				{% for contact in cont %}
+						 	<table width="100%" align="left">
+
+								<tbody><tr>
+								<th height="33" style="text-align:left;">&nbsp;&nbsp;&nbsp; DETAILS </th>
+								<th style="text-align:left;"></th>
+								</tr>
+								
+								<tr id="">
+								<td width="20%"></td>
+								</tr>
+								
+								<tr id="">
+								<td width="24%" height="28" align="left" valign="top">&nbsp;&nbsp;&nbsp;&nbsp; Centre e-mail</td>
+								<td width="26%" valign="top">&nbsp;
+								<a href="#" style="color:#0033FF; text-decoration:none;">
+								<font id="changeme" color="#993300">&nbsp;&nbsp; {{ contact.email_address }} </font></a> &nbsp;&nbsp;</td>
+								</tr>
+							    
+							    <tr id="">
+								<td width="24%" valign="top" align="left">&nbsp;&nbsp;&nbsp;&nbsp; Phone Number</td>
+								<td width="26%" valign="top">&nbsp;
+								<a href="#" style="color:#0033FF; text-decoration:none;">
+								<font id="changeme" color="#993300">&nbsp;&nbsp; {{ contact.phone_number }} </font></a> &nbsp;&nbsp;</td>
+								</tr>
+								
+								<tr>
+								<td><div style="border-bottom:0px solid #CCCCCC;"></div></td>
+								<td><div style="border-bottom:0px solid #CCCCCC;"></div></td>
+								</tr>
+								
+								</tbody>
+							</table>
+						    <br><br>
+						{% endfor %}
+						{% else %}
+			                <div class="col-sm-12">
+			                 <p>No contact has been uploaded.</p>
+			                </div>
+       				{% endif %}
+				<!-- end .eadd --></div>
+				    
+				<div class="phyadd"> 	
+					<strong><h3>Physical Address:</h3></strong>
+						<p>African Centre of Excellence in Phytomedicine Research and Drug Development,<br>
+						Dean's Office,<br>
+						Faculty of Pharmaceutical sciences,<br>
+						University of Jos<br>
+				        P.M.B 2084 Jos, <br>
+				        Plateau State, Nigeria.<br>
+						Post code: 930001
+						</p>
+				<!-- end .phyadd --></div>
+				     
+			<!-- end .contactus --></div>
+	{% endblock %}
