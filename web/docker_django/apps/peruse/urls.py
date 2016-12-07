@@ -15,14 +15,15 @@ urlpatterns = [
 	url(r'^dashboard/publish-plant-image/', views.PublishPlantImage, name='dashboard.PublishPlantImage'),
 	url(r'^dashboard/publish-plant-dataset/', views.PublishPlantDataset, name='dashboard.PublishPlantDataset'),
 	url(r'^dashboard/profile-details/', views.researcherProfile, name='dashboard.researcherProfile'),
-<<<<<<< HEAD
+
 	# url(r'^q/(?P<plant_id>[0-9]+)/', views.search, name='dashboard.search'),
 	url(r'^test/', views.test, name='peruse.test'),
-	url(r'^ask/', views.ask, name='peruse.faqs')
+	url(r'^ask/', views.ask, name='peruse.faqs'),
+	url(r'^privacy/', views.Privacy, name='peruse.privacy'),
+	url(r'^contact-us/', views.contactUs, name='peruse.contact'),
 
-=======
 	url(r'^search/', views.search, name='peruse.search'),
 	url(r'^query/(?P<q>[a-zA-Z0-9_]+)/', views.searchByFirstLetter, name='peruse.searchByFirstLetter'),
 	url(r'^test/', views.test, name='peruse.test')
->>>>>>> refs/remotes/origin/master
+
 ]

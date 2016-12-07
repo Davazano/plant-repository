@@ -1,13 +1,10 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404 # redirect
-<<<<<<< HEAD
-from .models import Plant, PlantImage, PlantDataset, Faqs
-=======
+from .models import Plant, PlantImage, PlantDataset, Faqs, Contact
 from django.core import serializers
 from django.db.models import Q
 from .models import Plant, PlantImage, PlantDataset
->>>>>>> refs/remotes/origin/master
 from redis import Redis
 from django.http import HttpResponse
 from .forms import UserForm, PlantInfoForm, PlantImagesForm, PlantDatasetsForm, ResearcherProfileForm
@@ -505,3 +502,14 @@ def ask(request):
 	context = {'faq' : faq}
 	fillAuthContext(request, context)
 	return render(request, 'library/faqs.html', context)
+
+def Privacy(request):
+	context = {}
+	fillAuthContext(request, context)
+	return render(request, 'library/privacy.html', context)
+
+def contactUs(request):
+	cont = Contact.objects.filter(is_visible = True)
+	context = {'cont' : cont}
+	fillAuthContext(request, context)
+	return render(request, 'library/contact.html', context)

@@ -100,3 +100,13 @@ class Faqs(models.Model):
 
     def __str__(self):
         return self.question
+
+class Contact(models.Model):
+    email_address = models.CharField(max_length = 100)
+    phone_number = models.CharField(max_length = 100)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    is_visible = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.email_address
