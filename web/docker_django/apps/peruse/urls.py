@@ -21,6 +21,8 @@ urlpatterns = [
 	url(r'^ask/', views.ask, name='peruse.faqs'),
 	url(r'^privacy/', views.Privacy, name='peruse.privacy'),
 	url(r'^contact-us/', views.contactUs, name='peruse.contact'),
+	url(r'^news/', views.news, name='peruse.newsPage'),
+	url(r'^about-us/', views.aboutUs, name='peruse.about'),
 
 	url(r'^search/', views.search, name='peruse.search'),
 	url(r'^query/(?P<q>[a-zA-Z0-9_]+)/', views.searchByFirstLetter, name='peruse.searchByFirstLetter'),

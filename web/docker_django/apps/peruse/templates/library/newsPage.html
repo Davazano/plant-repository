@@ -1,34 +1,30 @@
 {% extends 'library/_base.html' %}
-  {% block title %}FAQs - ACEPRD Plant Repository{% endblock %}
+  {% block title %}Privacy - ACEPRD Plant Repository{% endblock %}
 
     {% block center %}
       <div class="panel-group" id="accordion">
-        <h3>Frequently Asked Questions</h3>
-        <hr>
+        <h3>ACEPRD News</h3><hr>
         <br><br>
-          {% if faq %}
-            {% for faqs in faq %}
-                <div class="panel panel-default" id="panel">
+          {% if view %}
+            {% for NewsPage in view %}
+                <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        {{ faqs.question }}
+                        {{ NewsPage.news_title }}
                       </a>
                     </h4>
                   </div>
                   <div id="collapseOne" class="panel-collapse collapse in">
                     <div class="panel-body">
-                      {{ faqs.answer }} 
+                      {{ NewsPage.news_content }} 
                     </div>
                   </div>
                 </div>
             {% endfor %}
               {% else %}
                 <div class="col-sm-12">
-                 <p>No faqs has been uploaded.</p>
-                 <p>&nbsp;</p>
-                 <p>&nbsp;</p>
-                 <p>&nbsp;</p>
+                 <p>No news has been uploaded.</p>
                 </div>
           {% endif %}    
       </div>

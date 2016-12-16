@@ -25,13 +25,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'peruse.index' %}">ACEPRD Plant Repository</a>
+            <a class="navbar-brand" href="{% url 'peruse.index' %}" style="width: 400px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ACEPRD Plant Repository </a>
         </div>
 
         <!-- Items -->
         <div class="collapse navbar-collapse" id="topNavBar">
             <ul class="nav navbar-nav">
                 <li class="{% block index_active %}{% endblock %}"><a href="{% url 'peruse.index' %}"><i class="fa fa-home"></i>&nbsp; Home</a></li>
+                <li class="{% block about_active %}{% endblock %}"><a href="{% url 'peruse.about' %}">&nbsp; About Us</a></li>
                 {% if authenticated %}
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Researcher Guide <span class="caret"></span></a>
@@ -129,7 +130,7 @@
 
                 {% endblock %}
             </div>
-            <div class="col-xs-12 col-md-2 page-content content-offset-1-05" style="height: 300px">
+            <div class="col-xs-12 col-md-2 page-content content-offset-1-05" style="height: auto;">
                 {% block leftSide %}
 
                 {% endblock %}
@@ -139,9 +140,34 @@
                         <p class="text-center"><span class="label label-generic">{{ counter }}</span> views</p>
                     </div><br><br>
                 {% endif %}
+
                 <div class=class="col-xs-12 col-md-2 page-content content-offset-1-05">
-                    <h4>This will contain the news page streaming up</h4>
+
+                    <div class="right-col">
+                        <h4 class="title">» Latest news</h4><hr>
+                    </div>
+
+                    <div class="streaming white-background">
+                        <div id="streaming-news" style="overflow: hidden; position: relative; height: 500px;">
+                            <ul style="margin: 0px; padding: 0px; position: absolute; top: 0px;">   
+
+                                <li style="margin: 0px; padding: 0px; height: 110px; display: list-item;">
+
+                                    <h4><a href="{% url 'peruse.newsPage' %}" class="link-generic">AfricaConnect2 to create first pan-...
+                                    </a></h4><p></p>
+                                    <p><a href="{% url 'peruse.newsPage' %}" class="link-generic" style="color: #066">Read more</a></p>
+                                </li>
+                                <li style="margin: 0px; padding: 0px; height: 110px; display: list-item;">
+
+                                    <h4><a href="{% url 'peruse.newsPage' %}" class="link-generic">AfricaConnect2 to create first pan-...
+                                    </a></h4><p></p>
+                                    <p><a href="{% url 'peruse.newsPage' %}" class="link-generic" style="color: #066">Read more</a></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                
                 </div>
+
             </div>
         </div>
     </div>
@@ -155,6 +181,7 @@
             <li><a href="{% url 'peruse.faqs' %}" class="link-generic">FAQs</a></li>
             <li><a href="{% url 'peruse.privacy' %}" class="link-generic">Privacy</a></li>
             <li><a href="{% url 'peruse.contact' %}" class="link-generic">Contact Us</a></li>
+            <li><a href="{% url 'peruse.about' %}" class="link-generic">About Us</a></li>
         </ul>
     </div>
     <div>

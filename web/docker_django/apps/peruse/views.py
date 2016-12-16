@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, get_object_or_404 # redirect
-from .models import Plant, PlantImage, PlantDataset, Faqs, Contact
+from .models import Plant, PlantImage, PlantDataset, Faqs, Contact, NewsPage
 from django.core import serializers
 from django.db.models import Q
 from .models import Plant, PlantImage, PlantDataset
@@ -513,3 +513,14 @@ def contactUs(request):
 	context = {'cont' : cont}
 	fillAuthContext(request, context)
 	return render(request, 'library/contact.html', context)
+
+def news(request):
+	view = NewsPage.objects.filter(is_visible = True)
+	context = {'view' : view}
+	fillAuthContext(request, context)
+	return render(request, 'library/newsPage.html', context)
+
+def aboutUs(request):
+	context = {}
+	fillAuthContext(request, context)
+	return render(request, 'library/about.html', context)

@@ -110,3 +110,13 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.email_address
+
+class NewsPage(models.Model):
+    news_title = models.CharField(max_length = 200)
+    news_content = models.CharField(max_length = 500)
+    created_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
+    is_visible = models.BooleanField(default = False)
+
+    def __str__(self):
+        return self.news_title
