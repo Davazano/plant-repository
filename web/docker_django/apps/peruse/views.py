@@ -22,8 +22,9 @@ redis = Redis(host='redis', port=6379)
 # ----Guest Views----
 def index(request):
 	plants = Plant.objects.filter(is_visible = True)
+	neew = NewsPage.objects.filter(is_visible = True)
 	counter = redis.incr('counter')
-	context = {'plants': plants, 'counter': counter}
+	context = {'plants': plants, 'counter': counter, 'neew' : neew}
 	fillAuthContext(request, context)
 	return render(request, 'library/index.html', context)
 
@@ -154,10 +155,13 @@ def test(request):
 # 		return render(request, 'library/login.html')
 
 def fillAuthContext(request, context):
+	neew = NewsPage.objects.filter(is_visible = True)
+	context['newsPage'] = neew
 	context['authenticated'] = request.user.is_authenticated()
 	if context['authenticated'] == True:
 		context['username'] = request.user.username
 
+	return context
 	return HttpResponse(context)
 
 # def register(request):
@@ -515,10 +519,16 @@ def contactUs(request):
 	return render(request, 'library/contact.html', context)
 
 def news(request):
-	view = NewsPage.objects.filter(is_visible = True)
-	context = {'view' : view}
+	neew = NewsPage.objects.filter(is_visible = True)
+	context = {'neew' : neew}
 	fillAuthContext(request, context)
-	return render(request, 'library/newsPage.html', context)
+	return render(request, 'library/newsview.html', context)
+
+def news_detail(request, newsPage_id):
+	newsPage = get_object_or_404(NewsPage, pk = newsPage_id)
+	context = { 'newsPage': newsPage }
+	fillAuthContext(request, context)
+	return render(request, 'library/newsDet.html', context)
 
 def aboutUs(request):
 	context = {}

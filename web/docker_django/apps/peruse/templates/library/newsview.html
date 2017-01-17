@@ -1,0 +1,24 @@
+{% extends 'library/_base.html' %}
+{% block index_active %}active{% endblock %}
+{% load staticfiles %}
+
+{% block center %}
+
+	<div class="right-col">
+        <h4 class="title">» Latest news</h4><hr>
+	</div>
+    <div class="streaming">
+        {% if neew %}
+            {% for newsPage in neew %}
+                <div class="streaming">
+                    <a href="{% url 'peruse.news_detail' newsPage.id %}" class="link-generic">{{ newsPage.news_title }}</a><br>
+                    <a href="{% url 'peruse.news_detail' newsPage.id %}" class="link-generic" style="color: #066">Read more</a>
+                </div>
+            {% endfor %}
+                {% else %}
+                    <div class="col-sm-12">
+                    	<p>No news has been uploaded.</p>
+                    </div>
+        {% endif %}
+    </div> 
+{% endblock %}

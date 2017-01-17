@@ -1,0 +1,21 @@
+{% extends 'library/_base.html' %}
+  {% block title %} {{ newsPage.news_title }}'s Details{% endblock %}
+  
+{% block center %}
+  <div class="panel-group" id="accordion">
+    <h3>ACEPRD News</h3><hr>
+    <br><br>
+    <div class="panel panel-default" id="panel">
+      <div class="panel-heading" style="background-color: #369268; color: #DBDBDB">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseone"> {{ newsPage.news_title }} </a>
+        </h4>
+      </div>
+      <div id="collapseone" class="panel-collapse collapse">
+        <div class="panel-body">
+          {{ newsPage.news_content }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

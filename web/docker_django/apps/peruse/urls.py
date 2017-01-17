@@ -21,7 +21,8 @@ urlpatterns = [
 	url(r'^ask/', views.ask, name='peruse.faqs'),
 	url(r'^privacy/', views.Privacy, name='peruse.privacy'),
 	url(r'^contact-us/', views.contactUs, name='peruse.contact'),
-	url(r'^news/', views.news, name='peruse.newsPage'),
+	url(r'^news/', views.news, name='peruse.newsview'),
+	url(r'^news-info/(?P<newsPage_id>[0-9]+)/', views.news_detail, name='peruse.news_detail'),
 	url(r'^about-us/', views.aboutUs, name='peruse.about'),
 
 	url(r'^search/', views.search, name='peruse.search'),
